@@ -1,0 +1,20 @@
+(**
+<!-- header: '**F# Data Structures**' -->
+
+# F# Data Structures
+
+---
+
+# In this talk
+- Immutable Data Structures - why, how
+- Structural sharing
+- F# List
+- F# Map
+- F# Set
+- Comparison with C# collections
+- IEnumerable, seq - lazy sequences
+- note about purity
+- ImmutableCollections
+
+
+*)
