@@ -18,6 +18,14 @@ listB = listB2
 
 (*
 
+```mermaid
+graph TD;
+    listA --> 1 --> 2 --> 3 --> nil
+    listA2 --> 1 --> 2 --> 3 --> nil
+    listB --> 4 --> listA
+    listB2 --> 4 --> listA
+```
+
 ---
 
 - fast iteration, mapping, filtering
@@ -26,8 +34,7 @@ listB = listB2
 - `xs @ ys` slow
 
 ---
-*)
-
+```fsharp
     [<Benchmark>]
     member _.ListAddToEnd() =
         let rec go i acc =
@@ -41,8 +48,7 @@ listB = listB2
             if i = 0 then acc
             else go (i - 1) (i :: acc)
         go size [] |> List.rev
-
-(*
+```
 
 |          Method |        Mean |      Error |     StdDev |
 |---------------- |------------:|-----------:|-----------:|
@@ -51,13 +57,8 @@ listB = listB2
 
 - List.rev is fast!
 
-```mermaid
-graph TD;
-    listA --> 1 --> 2 --> 3 --> nil
-    listA2 --> 1 --> 2 --> 3 --> nil
-    listB --> 4 --> listA
-    listB2 --> 4 --> listA
-```
+---
+
 
 
 *)
