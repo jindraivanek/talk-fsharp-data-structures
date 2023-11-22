@@ -135,7 +135,9 @@ div.it {
 
     let result =
         header +
-            (mkMultiColumn output |> preBlockChanger)
+            (mkMultiColumn output
+             //|> preBlockChanger
+             )
                 .Replace(divider, "---")
                 .Replace($">{nl}#", $">{nl}{nl}#")
                 .Replace($">{nl}---", $">{nl}{nl}---")
@@ -163,6 +165,6 @@ let watch prefix title filename =
     let w = myWatcher (fun () -> getFiles prefix |> Seq.toList) convert |> Async.Start
     convert ()
 
-watch "ds" "F# Data Structrues"  "ds.md"
+watch "ds" "F# Data Structrues"  "data_structures.md"
 
 System.Console.ReadLine() |> ignore
