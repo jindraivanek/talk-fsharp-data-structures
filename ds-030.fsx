@@ -28,7 +28,7 @@ graph TD;
 
 ---
 
-- fast iteration, mapping, filtering
+- fast iteration, mapping, filtering, append to start
 - slow indexing, append on end
 - `x :: xs` super fast
 - `xs @ ys` slow
@@ -58,7 +58,5 @@ graph TD;
 - List.rev is fast!
 
 ---
-
-
 
 *)

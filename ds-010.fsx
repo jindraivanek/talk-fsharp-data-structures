@@ -11,10 +11,10 @@
 - F# List
 - F# Map
 - F# Set
+- List vs Set
 - Comparison with C# collections
 - IEnumerable, seq - lazy sequences
 - note about purity
 - ImmutableCollections
-
 
 *)
