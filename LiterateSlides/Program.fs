@@ -4,6 +4,11 @@ open System.Security.Cryptography
 open FSharp.Formatting.Literate
 open FSharp.Formatting.Literate.Evaluation
 
+let allowedExtensions = [".fsx"; ".fs"; ".md"]
+
+let (|StartsWith|_|) (prefix: string) (input: string) =
+    if input.StartsWith(prefix) then Some input else None
+
 let memoizeBy (g: 'a -> 'c) (f: 'a -> 'b) =
     let cache = System.Collections.Concurrent.ConcurrentDictionary<_, _>(HashIdentity.Structural)
     fun x ->
@@ -15,17 +20,9 @@ let regexReplace (pattern: string) (replacement: string) (input: string) =
     let regex = System.Text.RegularExpressions.Regex(pattern, System.Text.RegularExpressions.RegexOptions.Singleline)
     regex.Replace(input, replacement)
 
-"""
-```
-A
-B
-```
-"""
-|> regexReplace $"```\n([^`]*)```" "<div class=\"out\">\n\n```\n$1```\n\n</div>"
-
-
 let sourceDir = __SOURCE_DIRECTORY__ + "/.."
-let getFiles prefix = System.IO.Directory.EnumerateFiles(sourceDir, $"{prefix}*.fsx") |> Seq.sort
+let getFiles prefix = 
+    allowedExtensions |> Seq.collect (fun x -> System.IO.Directory.EnumerateFiles(sourceDir, $"{prefix}*{x}")) |> Seq.sort
 
 let changeOutput f filename =
     let output = System.IO.File.ReadAllText(filename)
@@ -52,23 +49,23 @@ let preBlockChanger (input: string) =
     let rec loop insideBlock lines = [
         match lines, insideBlock with
         | [], _ -> yield! []
-        | "```" :: xs, None ->
+        | StartsWith "```" x :: xs, None ->
             $"<div class=\"out\">"
             ""
-            "```"
-            yield! loop (Some "```") xs
-        | "" :: "```" :: xs, Some "```"
-        | "```" :: xs, Some "```" ->
-            "```"
+            x
+            yield! loop (Some x) xs
+        | "" :: StartsWith "```" x :: xs, Some (StartsWith "```" _)
+        | StartsWith "```" x :: xs, Some (StartsWith "```" _) ->
+            x
             ""
             "</div>"
             yield! loop None xs
-        | x :: xs, None when x.StartsWith "```" ->
+        | StartsWith "```" x :: xs, None ->
             x
             yield! loop (Some x) xs
-        | "" :: "```" :: xs, Some _
-        | "```" :: xs, Some _ ->
-            "```"
+        | "" :: StartsWith "```" x :: xs, Some _
+        | StartsWith "```" x :: xs, Some _ ->
+            x
             yield! loop None xs
         | x :: xs, _ ->
             x
@@ -81,11 +78,14 @@ let sha = System.Security.Cryptography.SHA256.Create()
 let convertToMd =
     memoizeBy (fun (x: string) -> x, System.IO.File.GetLastWriteTime(x))
         (fun x ->
-            let tempFile = Path.GetTempFileName()
-            Literate.ConvertScriptFile(x, output = tempFile, outputKind = OutputKind.Markdown, fsiEvaluator = fsi)
-            let x = System.IO.File.ReadAllText(tempFile)
-            System.IO.File.Delete(tempFile)
-            x)
+            if x.EndsWith ".fsx" || x.EndsWith ".fs" then
+                let tempFile = Path.GetTempFileName()
+                Literate.ConvertScriptFile(x, output = tempFile, outputKind = OutputKind.Markdown, fsiEvaluator = fsi)
+                let x = System.IO.File.ReadAllText(tempFile)
+                System.IO.File.Delete(tempFile)
+                x
+            else
+                System.IO.File.ReadAllText(x))
 
 let convert prefix title filename =
     printfn "Converting: %A" (getFiles prefix |> Seq.toList)
@@ -93,7 +93,7 @@ let convert prefix title filename =
     let output =
         sources |> List.map convertToMd |> List.reduce (+)
     let header = $$"""---
-title: "{title}"
+title: "{{title}}"
 marp: true
 //class: invert
 paginate: true
