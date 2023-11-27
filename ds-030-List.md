@@ -65,4 +65,11 @@ graph TD;
 ```
 ---
 
-TODO: search, indexing
+### search, indexing
+
+![Searching in list](list_search.gif)
+
+- `List.find`, `List.nth` goes through list one by one
+- `Set` is better for searching in big lists
+- if you really need indexing, use array
+

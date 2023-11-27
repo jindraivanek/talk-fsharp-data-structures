@@ -17,3 +17,11 @@ Set (immutable set) | `Set<'T>` | `ImmutableHashSet<T>`
 Dictionary (mutable) | - | `Dictionary<K, V>`
 HashSet (mutable) | - | `HashSet<T>`
 Enumerable | `seq<'T>` | `IEnumerable<T>`
+
+---
+
+# Other useful C# collections
+
+- `Queue<T>`
+- `PriorityQueue<T>`
+- `ConcurrentDictionary<K, V>`

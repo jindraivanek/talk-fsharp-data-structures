@@ -54,7 +54,8 @@ div.it {
 - IEnumerable, seq - lazy sequences
 - note about purity
 - ImmutableCollections
-<!-- header: '**F# Data Structures**' -->
+
+---<!-- header: '**F# Data Structures**' -->
 
 # Immutable Data Structures
 
@@ -63,15 +64,19 @@ div.it {
 # Why?
 - mutation is common source of bugs
 - immutable data structures are easier to reason about
-  - when you pass a value to a function, you know it won't be changed
+  - value  passed to a function, can't be changed
 - immutable data structures are thread-safe
+- bonus: memory efficient time travelling
 
 ---
 
 # How?
 - MYTH: to create new immutable value, you need to copy the whole thing
-- you can share parts of the structure between old and new value
-<!-- header: '**F# Data Structures**' -->
+- we can share parts of the structure between old and new value
+
+![Structural sharing](structural_sharing.png)
+
+---<!-- header: '**F# Data Structures**' -->
 
 # Structural sharing
 
@@ -138,7 +143,15 @@ graph TD;
 ```
 ---
 
-TODO: search, indexing<!-- header: '**F# Data Structures**' -->
+### search, indexing
+
+![Searching in list](list_search.gif)
+
+- `List.find`, `List.nth` goes through list one by one
+- `Set` is better for searching in big lists
+- if you really need indexing, use array
+
+<!-- header: '**F# Data Structures**' -->
 
 # Structural sharing
 
@@ -179,7 +192,9 @@ TODO: make video?
 
 ---
 
-TODO: List.groupBy<!-- header: '**F# Data Structures**' -->
+```fsharp
+[1..1000] |> List.groupBy (fun x -> x % 100) |> Map.ofList
+```<!-- header: '**F# Data Structures**' -->
 
 # Structural sharing
 
@@ -191,7 +206,32 @@ Like `Map`, but without values
 
 ---
 
-## When to use Set instead of List?<!-- header: '**F# Data Structures**' -->
+## When to use Set instead of List?
+
+- generally its faster to search for item with `Set`
+- but for small sizes `List.constains` is faster
+
+```
+|       Method | Size |          Mean |       Error |      StdDev |
+|------------- |----- |--------------:|------------:|------------:|
+| **ListContains** |   **64** |      **2.159 μs** |   **0.0431 μs** |   **0.0998 μs** |
+|  SetContains |   64 |      4.561 μs |   0.0833 μs |   0.0780 μs |
+| **ListContains** |  **128** |      **8.241 μs** |   **0.0473 μs** |   **0.0443 μs** |
+|  SetContains |  128 |     10.347 μs |   0.1933 μs |   0.1985 μs |
+| **ListContains** |  **256** |     **31.169 μs** |   **0.1609 μs** |   **0.1426 μs** |
+|  SetContains |  256 |     23.488 μs |   0.3803 μs |   0.3557 μs |
+| **ListContains** |  **512** |    **119.456 μs** |   **0.5491 μs** |   **0.5136 μs** |
+|  SetContains |  512 |     52.889 μs |   0.8146 μs |   0.6802 μs |
+| **ListContains** | **1024** |    **467.593 μs** |   **1.9139 μs** |   **1.7902 μs** |
+|  SetContains | 1024 |    149.908 μs |   1.2287 μs |   1.1494 μs |
+| **ListContains** | **8192** | **29,487.104 μs** | **114.3813 μs** | **101.3960 μs** |
+|  SetContains | 8192 |  1,548.127 μs |  19.6668 μs |  18.3963 μs |
+```
+
+## Another important functions
+- `Set.union` - is faster than addinng all items from second set
+- `Set.intersect`
+- `Set.difference`<!-- header: '**F# Data Structures**' -->
 
 # Comparison with C# collections
 
@@ -209,7 +249,15 @@ Map (immutable dictionary) | `Map<'K, 'V>` | `ImmutableDictionary<K, V>`
 Set (immutable set) | `Set<'T>` | `ImmutableHashSet<T>`
 Dictionary (mutable) | - | `Dictionary<K, V>`
 HashSet (mutable) | - | `HashSet<T>`
-Enumerable | `seq<'T>` | `IEnumerable<T>`<!-- header: '**F# Data Structures**' -->
+Enumerable | `seq<'T>` | `IEnumerable<T>`
+
+---
+
+# Other useful C# collections
+
+- `Queue<T>`
+- `PriorityQueue<T>`
+- `ConcurrentDictionary<K, V>`<!-- header: '**F# Data Structures**' -->
 
 # Enumerable, seq - lazy sequences
 
@@ -234,7 +282,22 @@ xs |> Seq.filter (...) |> Seq.map (fun x -> expensiveFun x) |> Seq.tryFind (...)
 ```
 
 Only elements that pass the filter are computed.
-<!-- header: '**F# Data Structures**' -->
+
+---
+
+There is cases where using `Seq` can be faster than `List`.
+
+Example: expensive filtering and then taking first *k* elements.
+
+---
+
+Seq can be also used for generating (possible infinite) sequences.
+
+```fsharp
+let cycle xs =
+    let arr = Array.ofSeq xs
+    Seq.initInfinite (fun i -> arr.[i % arr.Length])
+```<!-- header: '**F# Data Structures**' -->
 
 # Pure functions
 
@@ -252,7 +315,32 @@ Pure function:
 - referential transparency can be achived even with mutable data structures
 - mutable variables and data structures are perfectly fine when not leaking outside of function
 
-<!-- header: '**F# Data Structures**' -->
+```fsharp
+    [<CompiledName("Fold")>]
+    let fold<'T, 'State> folder (state: 'State) (list: 'T list) =
+        match list with
+        | [] -> state
+        | _ ->
+            let f = OptimizedClosures.FSharpFunc<_, _, _>.Adapt (folder)
+            let mutable acc = state
+
+            for x in list do
+                acc <- f.Invoke(acc, x)
+
+            acc
+```
+
+- no mutable variables / data structures => referential transparency
+
+---
+
+Memoize function:
+
+```fsharp
+let memoizeBy projection f =
+    let cache = System.Collections.Concurrent.ConcurrentDictionary()
+    fun x -> cache.GetOrAdd(projection x, lazy f x).Value
+```<!-- header: '**F# Data Structures**' -->
 
 # C# Immutable collections
 

@@ -23,3 +23,19 @@ xs |> Seq.filter (...) |> Seq.map (fun x -> expensiveFun x) |> Seq.tryFind (...)
 ```
 
 Only elements that pass the filter are computed.
+
+---
+
+There is cases where using `Seq` can be faster than `List`.
+
+Example: expensive filtering and then taking first *k* elements.
+
+---
+
+Seq can be also used for generating (possible infinite) sequences.
+
+```fsharp
+let cycle xs =
+    let arr = Array.ofSeq xs
+    Seq.initInfinite (fun i -> arr.[i % arr.Length])
+```
