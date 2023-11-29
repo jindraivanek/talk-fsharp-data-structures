@@ -59,7 +59,7 @@ type ListFunctions<'T>() =
             else go (i - 1) (xs.[i] :: acc)
         go (size-1) []
 
-type ListVsMap() =
+type ListVsSet() =
     [<Params(64, 128, 256, 512, 1024, 8192)>]
     member val Size = 0 with get, set
 
@@ -73,6 +73,19 @@ type ListVsMap() =
     [<Benchmark>]
     member x.SetContains() =
         test x.SetOfInts Set.contains
+
+type Map() =
+    let mapOfInts = listOfInts size |> List.map (fun i -> i, i) |> Map.ofList
+    
+    [<Benchmark>]
+    member _.MapUnionByAdd() =
+        let rec go i acc =
+            if i = 0 then acc
+            else go (i - 1) (Map.add (size+i) i acc)
+        go size mapOfInts
+
+    [<Benchmark>]
+    member _.MapUnion() =
 
 // [<MemoryDiagnoser>]
 // type ListImmListTests() =
@@ -163,7 +176,7 @@ type ListVsMap() =
 
 //InProcessEmitToolchain.Instance
 //BenchmarkRunner.Run<ListImmListTests>()
-BenchmarkRunner.Run<ListVsMap>()
+BenchmarkRunner.Run<ListVsSet>()
 // BenchmarkRunner.Run<GenericTests<int>>()
 // BenchmarkRunner.Run<GenericTests<string>>()
 // BenchmarkRunner.Run<GenericTests<MyRecord>>()
