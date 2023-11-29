@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>F# Data Structrues</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="data_structures_files/libs/clipboard/clipboard.min.js"></script>
+<script src="data_structures_files/libs/quarto-html/quarto.js"></script>
+<script src="data_structures_files/libs/quarto-html/popper.min.js"></script>
+<script src="data_structures_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="data_structures_files/libs/quarto-html/anchor.min.js"></script>
+<link href="data_structures_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="data_structures_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="data_structures_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="data_structures_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="data_structures_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">F# Data Structrues</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<style>
+div.colwrap {
+  background-color: inherit;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+div.colwrap div h1:first-child, div.colwrap div h2:first-child {
+  margin-top: 0px !important;
+}
+div.colwrap div.left, div.colwrap div.right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 70px 35px 70px 70px;
+}
+div.colwrap div.left {
+  right: 50%;
+  left: 0;
+}
+div.colwrap div.right {
+  left: 50%;
+  right: 0;
+}
+div.out {
+--color-foreground: #000;
+}
+div.it {
+--color-foreground: #006;
+}
+</style>
+<!-- header: '**F# Data Structures**' -->
+<section id="f-data-structures" class="level1">
+<h1>F# Data Structures</h1>
+<hr>
+</section>
+<section id="in-this-talk" class="level1">
+<h1>In this talk</h1>
+<ul>
+<li>Immutable Data Structures - why, how</li>
+<li>Structural sharing</li>
+<li>F# List</li>
+<li>F# Map</li>
+<li>F# Set</li>
+<li>List vs Set</li>
+<li>Comparison with C# collections</li>
+<li>IEnumerable, seq - lazy sequences</li>
+<li>note about purity</li>
+<li>ImmutableCollections</li>
+</ul>
+<p>—<!-- header: '**F# Data Structures**' --></p>
+</section>
+<section id="immutable-data-structures" class="level1">
+<h1>Immutable Data Structures</h1>
+<hr>
+</section>
+<section id="why" class="level1">
+<h1>Why?</h1>
+<ul>
+<li>mutation is common source of bugs</li>
+<li>immutable data structures are easier to reason about
+<ul>
+<li>value passed to a function, can’t be changed</li>
+</ul></li>
+<li>immutable data structures are thread-safe</li>
+<li>bonus: memory efficient time travelling</li>
+</ul>
+<hr>
+</section>
+<section id="how" class="level1">
+<h1>How?</h1>
+<ul>
+<li>MYTH: to create new immutable value, you need to copy the whole thing</li>
+<li>we can share parts of the structure between old and new value</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="structural_sharing.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Structural sharing</figcaption>
+</figure>
+</div>
+<p>—<!-- header: '**F# Data Structures**' --></p>
+</section>
+<section id="structural-sharing" class="level1">
+<h1>Structural sharing</h1>
+<hr>
+</section>
+<section id="f-linked-list" class="level1">
+<h1>F# (Linked) list</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> listA = <span class="op">[</span><span class="dv">1</span>; <span class="dv">2</span>; <span class="dv">3</span><span class="op">]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> listA2 = <span class="dv">1</span> :: <span class="dv">2</span> :: <span class="dv">3</span> :: <span class="op">[]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> listB = <span class="op">[</span><span class="dv">4</span>; <span class="dv">1</span>; <span class="dv">2</span>; <span class="dv">3</span><span class="op">]</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> listB2 = <span class="dv">4</span> :: listA</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>listA = listA2</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>listB = listB2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="mermaid"><code>graph TD;
+    listA --&gt; 1 --&gt; 2 --&gt; 3 --&gt; nil
+    listA2 --&gt; 1 --&gt; 2 --&gt; 3 --&gt; nil
+    listB --&gt; 4 --&gt; listA
+    listB2 --&gt; 4 --&gt; listA</code></pre>
+<hr>
+<ul>
+<li>fast iteration, mapping, filtering, append to start</li>
+<li>slow indexing, append on end</li>
+<li><code>x :: xs</code> super fast</li>
+<li><code>xs @ ys</code> slow</li>
+</ul>
+<hr>
+<div class="sourceCode" id="cb3"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="op">[&lt;</span>Benchmark<span class="op">&gt;]</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">member</span> _.ListAddToEnd<span class="op">()</span> =</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">rec</span> go i acc =</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> i = <span class="dv">0</span> <span class="kw">then</span> acc</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">else</span> go <span class="op">(</span>i - <span class="dv">1</span><span class="op">)</span> <span class="op">(</span>acc @ <span class="op">[</span>i<span class="op">])</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        go size <span class="op">[]</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">[&lt;</span>Benchmark<span class="op">&gt;]</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">member</span> _.ListAddToEndAcc<span class="op">()</span> =</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">rec</span> go i acc =</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> i = <span class="dv">0</span> <span class="kw">then</span> acc</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            <span class="kw">else</span> go <span class="op">(</span>i - <span class="dv">1</span><span class="op">)</span> <span class="op">(</span>i :: acc<span class="op">)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        go size <span class="op">[]</span> |&gt; List<span class="kw">.</span>rev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Method</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Error</th>
+<th style="text-align: right;">StdDev</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ListAddToEnd</td>
+<td style="text-align: right;">5,178.36 us</td>
+<td style="text-align: right;">102.125 us</td>
+<td style="text-align: right;">139.790 us</td>
+</tr>
+<tr class="even">
+<td>ListAddToEndAcc</td>
+<td style="text-align: right;">15.99 us</td>
+<td style="text-align: right;">0.308 us</td>
+<td style="text-align: right;">0.303 us</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>List.rev is fast!</li>
+</ul>
+<pre class="mermaid"><code>graph TD;
+    listA --&gt; 1 --&gt; 2 --&gt; 3 --&gt; nil
+    listA2 --&gt; 1 --&gt; 2 --&gt; 3 --&gt; nil
+    listB --&gt; 4 --&gt; listA
+    listB2 --&gt; 4 --&gt; listA</code></pre>
+<hr>
+<section id="search-indexing" class="level3">
+<h3 class="anchored" data-anchor-id="search-indexing">search, indexing</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="list_search.gif" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Searching in list</figcaption>
+</figure>
+</div>
+<ul>
+<li><code>List.find</code>, <code>List.nth</code> goes through list one by one</li>
+<li><code>Set</code> is better for searching in big lists</li>
+<li>if you really need indexing, use array</li>
+</ul>
+<p>—<!-- header: '**F# Data Structures**' --></p>
+</section>
+</section>
+<section id="structural-sharing-1" class="level1">
+<h1>Structural sharing</h1>
+<hr>
+</section>
+<section id="f-map" class="level1">
+<h1>F# Map</h1>
+<p>Dictionary like immutable data structure</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> mapA = Map<span class="kw">.</span>ofList <span class="op">[</span><span class="dv">1</span>, <span class="st">"A"</span>; <span class="dv">2</span>, <span class="st">"B"</span>; <span class="dv">3</span>, <span class="st">"C"</span><span class="op">]</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> mapB = Map<span class="kw">.</span>ofList <span class="op">[</span><span class="dv">1</span>, <span class="st">"A"</span>; <span class="dv">2</span>, <span class="st">"B"</span>; <span class="dv">3</span>, <span class="st">"C"</span>; <span class="dv">4</span>, <span class="st">"D"</span><span class="op">]</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> mapB2 = Map<span class="kw">.</span>add <span class="dv">4</span> <span class="st">"D"</span> mapA</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>mapB = mapB2 //<span class="co"> true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+<p>Internally implemented as a (balanced) tree</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> m = <span class="op">[</span><span class="dv">11</span>; <span class="dv">20</span>; <span class="dv">29</span>; <span class="dv">32</span>; <span class="dv">41</span>; <span class="dv">50</span>; <span class="dv">65</span>; <span class="dv">72</span>; <span class="dv">91</span>; <span class="dv">99</span><span class="op">]</span> |&gt; List<span class="kw">.</span>map <span class="op">(</span><span class="kw">fun</span> x -&gt; x, <span class="dt">string</span> x<span class="op">)</span> |&gt; Map<span class="kw">.</span>ofList</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="map1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Example tree</figcaption>
+</figure>
+</div>
+<p>DEMO: https://visualgo.net/en/bst</p>
+<p>TODO: make video?</p>
+<hr>
+<ul>
+<li>keys must be comparable</li>
+<li>searching for item (<code>Map.find</code>, <code>Map.containsKey</code>) by binary search</li>
+<li>insert, remove - unchanged part of tree is shared</li>
+<li>functions with predicate on key (<code>Map.pick</code>, <code>Map.findKey</code>), goes through whole tree! (in keys order)</li>
+<li>keys cannot be duplicite - insert (<code>Map.add</code>) repace value if key already exists</li>
+</ul>
+<hr>
+<div class="sourceCode" id="cb7"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span><span class="fl">1.</span>.<span class="dv">1000</span><span class="op">]</span> |&gt; List<span class="kw">.</span>groupBy <span class="op">(</span><span class="kw">fun</span> x -&gt; x % <span class="dv">100</span><span class="op">)</span> |&gt; Map<span class="kw">.</span>ofList</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>—<!-- header: '**F# Data Structures**' --></p>
+</section>
+<section id="structural-sharing-2" class="level1">
+<h1>Structural sharing</h1>
+<hr>
+</section>
+<section id="f-set" class="level1">
+<h1>F# Set</h1>
+<p>Like <code>Map</code>, but without values</p>
+<hr>
+<section id="when-to-use-set-instead-of-list" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-use-set-instead-of-list">When to use Set instead of List?</h2>
+<ul>
+<li>generally its faster to search for item with <code>Set</code></li>
+<li>but for small sizes <code>List.constains</code> is faster</li>
+</ul>
+<pre><code>|       Method | Size |          Mean |       Error |      StdDev |
+|------------- |----- |--------------:|------------:|------------:|
+| **ListContains** |   **64** |      **2.159 μs** |   **0.0431 μs** |   **0.0998 μs** |
+|  SetContains |   64 |      4.561 μs |   0.0833 μs |   0.0780 μs |
+| **ListContains** |  **128** |      **8.241 μs** |   **0.0473 μs** |   **0.0443 μs** |
+|  SetContains |  128 |     10.347 μs |   0.1933 μs |   0.1985 μs |
+| **ListContains** |  **256** |     **31.169 μs** |   **0.1609 μs** |   **0.1426 μs** |
+|  SetContains |  256 |     23.488 μs |   0.3803 μs |   0.3557 μs |
+| **ListContains** |  **512** |    **119.456 μs** |   **0.5491 μs** |   **0.5136 μs** |
+|  SetContains |  512 |     52.889 μs |   0.8146 μs |   0.6802 μs |
+| **ListContains** | **1024** |    **467.593 μs** |   **1.9139 μs** |   **1.7902 μs** |
+|  SetContains | 1024 |    149.908 μs |   1.2287 μs |   1.1494 μs |
+| **ListContains** | **8192** | **29,487.104 μs** | **114.3813 μs** | **101.3960 μs** |
+|  SetContains | 8192 |  1,548.127 μs |  19.6668 μs |  18.3963 μs |</code></pre>
+</section>
+<section id="another-important-functions" class="level2">
+<h2 class="anchored" data-anchor-id="another-important-functions">Another important functions</h2>
+<ul>
+<li><code>Set.union</code> - is faster than addinng all items from second set</li>
+<li><code>Set.intersect</code></li>
+<li><code>Set.difference</code></li>
+</ul>
+<p>—<!-- header: '**F# Data Structures**' --></p>
+</section>
+</section>
+<section id="comparison-with-c-collections" class="level1">
+<h1>Comparison with C# collections</h1>
+<hr>
+<section id="naming" class="level2">
+<h2 class="anchored" data-anchor-id="naming">Naming</h2>
+<table class="table">
+<colgroup>
+<col style="width: 4%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Collection | F# | C# — | — | — Linked list | <code>list&lt;'T&gt;</code> | <code>LinkedList&lt;T&gt;</code> Resizeable array | <code>ResizeArray&lt;'T&gt;</code> | <code>List&lt;T&gt;</code> Array | <code>array&lt;'T&gt;</code>, <code>'T[]</code> | <code>T[]</code> Map (immutable dictionary) | <code>Map&lt;'K, 'V&gt;</code> | <code>ImmutableDictionary&lt;K, V&gt;</code> Set (immutable set) | <code>Set&lt;'T&gt;</code> | <code>ImmutableHashSet&lt;T&gt;</code> Dictionary (mutable) | - | <code>Dictionary&lt;K, V&gt;</code> HashSet (mutable) | - | <code>HashSet&lt;T&gt;</code> Enumerable | <code>seq&lt;'T&gt;</code> | <code>IEnumerable&lt;T&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="other-useful-c-collections" class="level1">
+<h1>Other useful C# collections</h1>
+<ul>
+<li><code>Queue&lt;T&gt;</code></li>
+<li><code>PriorityQueue&lt;T&gt;</code></li>
+<li><code>ConcurrentDictionary&lt;K, V&gt;</code></li>
+</ul>
+<p>—<!-- header: '**F# Data Structures**' --></p>
+</section>
+<section id="enumerable-seq---lazy-sequences" class="level1">
+<h1>Enumerable, seq - lazy sequences</h1>
+<hr>
+<p>Every collection implements <code>seq&lt;'T&gt;</code> (alias for <code>IEnumerable&lt;T&gt;</code>) interface.</p>
+<p>Interface for reading elements one by one.</p>
+<p>Lazy abstraction - elements are computed on demand.</p>
+<hr>
+<div class="sourceCode" id="cb9"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>xs |&gt; Seq<span class="kw">.</span>map <span class="op">(</span><span class="kw">fun</span> x -&gt; expensiveFun x<span class="op">)</span> |&gt; Seq<span class="kw">.</span>take <span class="dv">10</span> |&gt; Seq<span class="kw">.</span>toList</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Only first 10 elements are computed.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>xs |&gt; Seq<span class="kw">.</span>filter <span class="op">(</span>...<span class="op">)</span> |&gt; Seq<span class="kw">.</span>map <span class="op">(</span><span class="kw">fun</span> x -&gt; expensiveFun x<span class="op">)</span> |&gt; Seq<span class="kw">.</span>tryFind <span class="op">(</span>...<span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Only elements that pass the filter are computed.</p>
+<hr>
+<p>There is cases where using <code>Seq</code> can be faster than <code>List</code>.</p>
+<p>Example: expensive filtering and then taking first <em>k</em> elements.</p>
+<hr>
+<p>Seq can be also used for generating (possible infinite) sequences.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> cycle xs =</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> arr = Array<span class="kw">.</span>ofSeq xs</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    Seq<span class="kw">.</span>initInfinite <span class="op">(</span><span class="kw">fun</span> i -&gt; arr.<span class="op">[</span>i % arr.Length<span class="op">])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>—<!-- header: '**F# Data Structures**' --></p>
+</section>
+<section id="pure-functions" class="level1">
+<h1>Pure functions</h1>
+<hr>
+<p>Immutable data structures allows us to write pure functions.</p>
+<p>Pure function: - always returns the same result for the same input (referential transparency) - no side effects</p>
+<hr>
+<ul>
+<li>BUT:</li>
+<li>referential transparency can be achived even with mutable data structures</li>
+<li>mutable variables and data structures are perfectly fine when not leaking outside of function</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="op">[&lt;</span>CompiledName<span class="op">(</span><span class="st">"Fold"</span><span class="op">)&gt;]</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> fold&lt;'T, 'State&gt; folder <span class="op">(</span>state: 'State<span class="op">)</span> <span class="op">(</span>list: 'T list<span class="op">)</span> =</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">match</span> list <span class="kw">with</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        | <span class="op">[]</span> -&gt; state</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        | _ -&gt;</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> f = OptimizedClosures<span class="kw">.</span>FSharpFunc&lt;_, _, _&gt;.Adapt <span class="op">(</span>folder<span class="op">)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> <span class="kw">mutable</span> acc = state</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">for</span> x <span class="kw">in</span> list <span class="kw">do</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                acc &lt;- f.Invoke<span class="op">(</span>acc, x<span class="op">)</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>            acc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>no mutable variables / data structures =&gt; referential transparency</li>
+</ul>
+<hr>
+<p>Memoize function:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode fsharp code-with-copy"><code class="sourceCode fsharp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> memoizeBy projection f =</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> cache = System<span class="kw">.</span>Collections<span class="kw">.</span>Concurrent<span class="kw">.</span>ConcurrentDictionary<span class="op">()</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> x -&gt; cache.GetOrAdd<span class="op">(</span>projection x, <span class="kw">lazy</span> f x<span class="op">)</span>.Value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>—<!-- header: '**F# Data Structures**' --></p>
+</section>
+<section id="c-immutable-collections" class="level1">
+<h1>C# Immutable collections</h1>
+<hr>
+<!-- header: '**F# Data Structures**' -->
+</section>
+<section id="questions" class="level1">
+<h1>QUESTIONS?</h1>
+<p>Ask question now, or I start talking about how to make mutable data structures immutable! :)</p>
+<hr>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

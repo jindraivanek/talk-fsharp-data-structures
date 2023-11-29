@@ -16,14 +16,7 @@ listA = listA2
 listB = listB2
 ```
 
-```mermaid
-graph TD;
-    listA --> 1 --> 2 --> 3 --> nil
-    listA2 --> 1 --> 2 --> 3 --> nil
-    listB --> 4 --> listA
-    listB2 --> 4 --> listA
-```
-
+![Linked list sharing](linked_list_sharing.png)
 ---
 
 - fast iteration, mapping, filtering, append to start
@@ -49,6 +42,8 @@ graph TD;
         go size [] |> List.rev
 ```
 
+---
+
 |          Method |        Mean |      Error |     StdDev |
 |---------------- |------------:|-----------:|-----------:|
 |    ListAddToEnd | 5,178.36 us | 102.125 us | 139.790 us |
@@ -56,13 +51,6 @@ graph TD;
 
 - List.rev is fast!
 
-```mermaid
-graph TD;
-    listA --> 1 --> 2 --> 3 --> nil
-    listA2 --> 1 --> 2 --> 3 --> nil
-    listB --> 4 --> listA
-    listB2 --> 4 --> listA
-```
 ---
 
 ### search, indexing
@@ -73,3 +61,4 @@ graph TD;
 - `Set` is better for searching in big lists
 - if you really need indexing, use array
 
+---

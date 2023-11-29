@@ -44,8 +44,7 @@ div.it {
 ---
 
 # In this talk
-- Immutable Data Structures - why, how
-- Structural sharing
+- Immutable Data Structures - why, how, Structural sharing
 - F# List
 - F# Map
 - F# Set
@@ -94,14 +93,7 @@ listA = listA2
 listB = listB2
 ```
 
-```mermaid
-graph TD;
-    listA --> 1 --> 2 --> 3 --> nil
-    listA2 --> 1 --> 2 --> 3 --> nil
-    listB --> 4 --> listA
-    listB2 --> 4 --> listA
-```
-
+![Linked list sharing](linked_list_sharing.png)
 ---
 
 - fast iteration, mapping, filtering, append to start
@@ -127,6 +119,8 @@ graph TD;
         go size [] |> List.rev
 ```
 
+---
+
 |          Method |        Mean |      Error |     StdDev |
 |---------------- |------------:|-----------:|-----------:|
 |    ListAddToEnd | 5,178.36 us | 102.125 us | 139.790 us |
@@ -134,13 +128,6 @@ graph TD;
 
 - List.rev is fast!
 
-```mermaid
-graph TD;
-    listA --> 1 --> 2 --> 3 --> nil
-    listA2 --> 1 --> 2 --> 3 --> nil
-    listB --> 4 --> listA
-    listB2 --> 4 --> listA
-```
 ---
 
 ### search, indexing
@@ -151,7 +138,7 @@ graph TD;
 - `Set` is better for searching in big lists
 - if you really need indexing, use array
 
-<!-- header: '**F# Data Structures**' -->
+---<!-- header: '**F# Data Structures**' -->
 
 # Structural sharing
 
@@ -194,11 +181,9 @@ TODO: make video?
 
 ```fsharp
 [1..1000] |> List.groupBy (fun x -> x % 100) |> Map.ofList
-```<!-- header: '**F# Data Structures**' -->
+```
 
-# Structural sharing
-
----
+---<!-- header: '**F# Data Structures**' -->
 
 # F# Set
 
@@ -231,7 +216,9 @@ Like `Map`, but without values
 ## Another important functions
 - `Set.union` - is faster than addinng all items from second set
 - `Set.intersect`
-- `Set.difference`<!-- header: '**F# Data Structures**' -->
+- `Set.difference`
+
+---<!-- header: '**F# Data Structures**' -->
 
 # Comparison with C# collections
 
@@ -257,7 +244,9 @@ Enumerable | `seq<'T>` | `IEnumerable<T>`
 
 - `Queue<T>`
 - `PriorityQueue<T>`
-- `ConcurrentDictionary<K, V>`<!-- header: '**F# Data Structures**' -->
+- `ConcurrentDictionary<K, V>`
+
+---<!-- header: '**F# Data Structures**' -->
 
 # Enumerable, seq - lazy sequences
 
@@ -297,7 +286,9 @@ Seq can be also used for generating (possible infinite) sequences.
 let cycle xs =
     let arr = Array.ofSeq xs
     Seq.initInfinite (fun i -> arr.[i % arr.Length])
-```<!-- header: '**F# Data Structures**' -->
+```
+
+---<!-- header: '**F# Data Structures**' -->
 
 # Pure functions
 
@@ -340,7 +331,9 @@ Memoize function:
 let memoizeBy projection f =
     let cache = System.Collections.Concurrent.ConcurrentDictionary()
     fun x -> cache.GetOrAdd(projection x, lazy f x).Value
-```<!-- header: '**F# Data Structures**' -->
+```
+
+---<!-- header: '**F# Data Structures**' -->
 
 # C# Immutable collections
 

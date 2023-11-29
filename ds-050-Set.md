@@ -1,9 +1,5 @@
 <!-- header: '**F# Data Structures**' -->
 
-# Structural sharing
-
----
-
 # F# Set
 
 Like `Map`, but without values
@@ -36,3 +32,5 @@ Like `Map`, but without values
 - `Set.union` - is faster than addinng all items from second set
 - `Set.intersect`
 - `Set.difference`
+
+---

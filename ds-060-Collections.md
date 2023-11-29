@@ -25,3 +25,5 @@ Enumerable | `seq<'T>` | `IEnumerable<T>`
 - `Queue<T>`
 - `PriorityQueue<T>`
 - `ConcurrentDictionary<K, V>`
+
+---

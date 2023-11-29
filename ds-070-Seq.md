@@ -39,3 +39,5 @@ let cycle xs =
     let arr = Array.ofSeq xs
     Seq.initInfinite (fun i -> arr.[i % arr.Length])
 ```
+
+---
