@@ -74,19 +74,20 @@ type ListVsSet() =
     member x.SetContains() =
         test x.SetOfInts Set.contains
 
-type Map() =
-    let mapOfInts = listOfInts size |> List.map (fun i -> i, i) |> Map.ofList
+type Set() =
+    let setOfInts = listOfInts size |> set
     
     [<Benchmark>]
-    member _.MapUnionByAdd() =
+    member _.SetItemUnionByAdd() =
         let rec go i acc =
             if i = 0 then acc
-            else go (i - 1) (Map.add (size+i) i acc)
-        go size mapOfInts
+            else go (i - 1) (Set.add (size+i) acc)
+        go size setOfInts
 
     [<Benchmark>]
-    member _.MapUnion() =
-
+    member _.SetUnion() =
+        Set.union setOfInts (listOfInts size |> List.map (fun i -> size + i) |> set)
+        
 // [<MemoryDiagnoser>]
 // type ListImmListTests() =
 //     let size = 1000
