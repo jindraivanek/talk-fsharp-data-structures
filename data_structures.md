@@ -54,7 +54,8 @@ div.it {
 - note about purity
 - ImmutableCollections
 
----<!-- header: '**F# Data Structures**' -->
+---
+<!-- header: '**F# Data Structures**' -->
 
 # Immutable Data Structures
 
@@ -75,7 +76,8 @@ div.it {
 
 ![Structural sharing](structural_sharing.png)
 
----<!-- header: '**F# Data Structures**' -->
+---
+<!-- header: '**F# Data Structures**' -->
 
 # Structural sharing
 
@@ -138,7 +140,8 @@ listB = listB2
 - `Set` is better for searching in big lists
 - if you really need indexing, use array
 
----<!-- header: '**F# Data Structures**' -->
+---
+<!-- header: '**F# Data Structures**' -->
 
 # Structural sharing
 
@@ -183,7 +186,8 @@ TODO: make video?
 [1..1000] |> List.groupBy (fun x -> x % 100) |> Map.ofList
 ```
 
----<!-- header: '**F# Data Structures**' -->
+---
+<!-- header: '**F# Data Structures**' -->
 
 # F# Set
 
@@ -218,7 +222,8 @@ Like `Map`, but without values
 - `Set.intersect`
 - `Set.difference`
 
----<!-- header: '**F# Data Structures**' -->
+---
+<!-- header: '**F# Data Structures**' -->
 
 # Comparison with C# collections
 
@@ -246,7 +251,8 @@ Enumerable | `seq<'T>` | `IEnumerable<T>`
 - `PriorityQueue<T>`
 - `ConcurrentDictionary<K, V>`
 
----<!-- header: '**F# Data Structures**' -->
+---
+<!-- header: '**F# Data Structures**' -->
 
 # Enumerable, seq - lazy sequences
 
@@ -288,7 +294,8 @@ let cycle xs =
     Seq.initInfinite (fun i -> arr.[i % arr.Length])
 ```
 
----<!-- header: '**F# Data Structures**' -->
+---
+<!-- header: '**F# Data Structures**' -->
 
 # Pure functions
 
@@ -333,7 +340,8 @@ let memoizeBy projection f =
     fun x -> cache.GetOrAdd(projection x, lazy f x).Value
 ```
 
----<!-- header: '**F# Data Structures**' -->
+---
+<!-- header: '**F# Data Structures**' -->
 
 # C# Immutable collections
 
