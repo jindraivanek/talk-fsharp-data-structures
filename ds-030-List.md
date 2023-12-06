@@ -8,13 +8,23 @@
 
 ```fsharp
 let listA = [1; 2; 3]
-let listA2 = 1 :: 2 :: 3 :: []
-let listB = [4; 1; 2; 3]
-let listB2 = 4 :: listA
+let listA = 1 :: 2 :: 3 :: []
+let listA2 = listA
+let listB = 4 :: listA
+let listB2 = [4] @ listA
 
 listA = listA2
 listB = listB2
 ```
+
+```mermaid
+graph LR;
+    listA(listA) --> 1 --> 2 --> 3 --> nil
+    listA2(listA2) --> 1
+    listB(listB) --> 4 --> listA
+    listB2(listB2) --> 4
+```
+TODO: update image
 
 ![Linked list sharing](linked_list_sharing.png)
 
