@@ -6,7 +6,6 @@
 
 ## Naming
 
---
 Collection | F# | C#
 --- | --- | ---
 Linked list | `list<'T>` | `LinkedList<T>`

@@ -4,17 +4,21 @@
 
 ---
 
-Immutable data structures allows us to write pure functions.
+- **Pure** function:
+    - always returns the same result for the same input (**referential transparency**)
+    - no side effects
 
-Pure function:
-- always returns the same result for the same input (referential transparency)
-- no side effects
+- Immutable data structures allows us to write **pure** functions.
+
+- no mutable variables / data structures, no side effects => **referential transparency**
 
 ---
 
 - BUT:
-- referential transparency can be achived even with mutable data structures
+- **referential transparency** can be achived even with mutable data structures
 - mutable variables and data structures are perfectly fine when not leaking outside of function
+
+---
 
 ```fsharp
     [<CompiledName("Fold")>]
@@ -31,11 +35,10 @@ Pure function:
             acc
 ```
 
-- no mutable variables / data structures => referential transparency
 
 ---
 
-Memoize function:
+### Memoize function:
 
 ```fsharp
 let memoizeBy projection f =

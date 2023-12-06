@@ -33,8 +33,11 @@ TODO: make video?
 
 - keys must be comparable
 - searching for item (`Map.find`, `Map.containsKey`) by binary search
+TODO: video
 - insert, remove - unchanged part of tree is shared
+TODO: image
 - functions with predicate on key (`Map.pick`, `Map.findKey`), goes through whole tree! (in keys order)
+example
 - keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
 
 ---

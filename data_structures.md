@@ -83,7 +83,7 @@ div.it {
 
 ---
 
-# F# (Linked) list
+## F# (Linked) list
 
 ```fsharp
 let listA = [1; 2; 3]
@@ -96,7 +96,10 @@ listB = listB2
 ```
 
 ![Linked list sharing](linked_list_sharing.png)
+
 ---
+
+## F# (Linked) list
 
 - fast iteration, mapping, filtering, append to start
 - slow indexing, append on end
@@ -176,8 +179,11 @@ TODO: make video?
 
 - keys must be comparable
 - searching for item (`Map.find`, `Map.containsKey`) by binary search
+TODO: video
 - insert, remove - unchanged part of tree is shared
+TODO: image
 - functions with predicate on key (`Map.pick`, `Map.findKey`), goes through whole tree! (in keys order)
+example
 - keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
 
 ---
@@ -199,6 +205,10 @@ Like `Map`, but without values
 
 - generally its faster to search for item with `Set`
 - but for small sizes `List.constains` is faster
+
+---
+
+## When to use Set instead of List?
 
 ```
 |       Method | Size |          Mean |       Error |      StdDev |
@@ -231,7 +241,6 @@ Like `Map`, but without values
 
 ## Naming
 
---
 Collection | F# | C#
 --- | --- | ---
 Linked list | `list<'T>` | `LinkedList<T>`
@@ -258,13 +267,17 @@ Enumerable | `seq<'T>` | `IEnumerable<T>`
 
 ---
 
-Every collection implements `seq<'T>` (alias for `IEnumerable<T>`) interface.
+## `seq<'t>`
 
-Interface for reading elements one by one.
+- Every collection implements `seq<'T>` (alias for `IEnumerable<T>`) interface.
 
-Lazy abstraction - elements are computed on demand.
+- Interface for reading elements one by one.
+
+- Lazy abstraction - elements are computed on demand.
 
 ---
+
+## `seq<'t>`
 
 ```fsharp
 xs |> Seq.map (fun x -> expensiveFun x) |> Seq.take 10 |> Seq.toList
@@ -280,11 +293,19 @@ Only elements that pass the filter are computed.
 
 ---
 
+## `seq<'t>`
+
 There is cases where using `Seq` can be faster than `List`.
 
 Example: expensive filtering and then taking first *k* elements.
 
+```fsharp
+xs |> Seq.filter (...) |> Seq.map (fun x -> expensiveFun x) |> Seq.tryFind (...)
+```
+
 ---
+
+## Infinite sequences
 
 Seq can be also used for generating (possible infinite) sequences.
 
@@ -301,17 +322,21 @@ let cycle xs =
 
 ---
 
-Immutable data structures allows us to write pure functions.
+- **Pure** function:
+    - always returns the same result for the same input (**referential transparency**)
+    - no side effects
 
-Pure function:
-- always returns the same result for the same input (referential transparency)
-- no side effects
+- Immutable data structures allows us to write **pure** functions.
+
+- no mutable variables / data structures, no side effects => **referential transparency**
 
 ---
 
 - BUT:
-- referential transparency can be achived even with mutable data structures
+- **referential transparency** can be achived even with mutable data structures
 - mutable variables and data structures are perfectly fine when not leaking outside of function
+
+---
 
 ```fsharp
     [<CompiledName("Fold")>]
@@ -328,11 +353,10 @@ Pure function:
             acc
 ```
 
-- no mutable variables / data structures => referential transparency
 
 ---
 
-Memoize function:
+### Memoize function:
 
 ```fsharp
 let memoizeBy projection f =
@@ -352,7 +376,7 @@ let memoizeBy projection f =
 - `ImmutableArray<T>` copying whole array on change (!)
 - `ImmutableDictionary<K, V>` is similar to `Map<K, V>`
 - `ImmutableStack<T>` is actually linked list - similar to `list<T>`
-- `ImmutableQueue<T>` - no std F# equivalent
+- `ImmutableQueue<T>` - no std. F# equivalent
 
 ---
 

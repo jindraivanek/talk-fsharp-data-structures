@@ -11,6 +11,10 @@ Like `Map`, but without values
 - generally its faster to search for item with `Set`
 - but for small sizes `List.constains` is faster
 
+---
+
+## When to use Set instead of List?
+
 ```
 |       Method | Size |          Mean |       Error |      StdDev |
 |------------- |----- |--------------:|------------:|------------:|

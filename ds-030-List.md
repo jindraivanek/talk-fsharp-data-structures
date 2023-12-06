@@ -4,7 +4,7 @@
 
 ---
 
-# F# (Linked) list
+## F# (Linked) list
 
 ```fsharp
 let listA = [1; 2; 3]
@@ -17,7 +17,10 @@ listB = listB2
 ```
 
 ![Linked list sharing](linked_list_sharing.png)
+
 ---
+
+## F# (Linked) list
 
 - fast iteration, mapping, filtering, append to start
 - slow indexing, append on end
