@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>ListBenchmarks.ListVsSet-20231208-174148</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.13.4, OS=Windows 10 (10.0.19045.3693)
+12th Gen Intel Core i7-12800H, 1 CPU, 20 logical and 14 physical cores
+.NET SDK=8.0.100
+  [Host]     : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2 DEBUG
+  DefaultJob : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>Size</th><th>   Mean</th><th>Error</th><th> StdDev</th><th> Median</th>
+</tr>
+</thead><tbody><tr><td>ListContains</td><td>64</td><td>1.838 &mu;s</td><td>0.0287 &mu;s</td><td>0.0363 &mu;s</td><td>1.835 &mu;s</td>
+</tr><tr><td>SetContains</td><td>64</td><td>3.936 &mu;s</td><td>0.0781 &mu;s</td><td>0.0730 &mu;s</td><td>3.920 &mu;s</td>
+</tr><tr><td>ListContains</td><td>128</td><td>9.306 &mu;s</td><td>0.1289 &mu;s</td><td>0.1206 &mu;s</td><td>9.307 &mu;s</td>
+</tr><tr><td>SetContains</td><td>128</td><td>10.202 &mu;s</td><td>0.2024 &mu;s</td><td>0.5368 &mu;s</td><td>10.258 &mu;s</td>
+</tr><tr><td>ListContains</td><td>256</td><td>39.617 &mu;s</td><td>0.6149 &mu;s</td><td>0.5752 &mu;s</td><td>39.447 &mu;s</td>
+</tr><tr><td>SetContains</td><td>256</td><td>25.006 &mu;s</td><td>1.0291 &mu;s</td><td>3.0342 &mu;s</td><td>24.670 &mu;s</td>
+</tr><tr><td>ListContains</td><td>512</td><td>150.071 &mu;s</td><td>2.2055 &mu;s</td><td>2.9442 &mu;s</td><td>149.994 &mu;s</td>
+</tr><tr><td>SetContains</td><td>512</td><td>54.284 &mu;s</td><td>1.6323 &mu;s</td><td>4.7096 &mu;s</td><td>52.307 &mu;s</td>
+</tr><tr><td>ListContains</td><td>1024</td><td>592.241 &mu;s</td><td>9.7667 &mu;s</td><td>9.1357 &mu;s</td><td>592.883 &mu;s</td>
+</tr><tr><td>SetContains</td><td>1024</td><td>125.859 &mu;s</td><td>2.4103 &mu;s</td><td>2.4752 &mu;s</td><td>126.365 &mu;s</td>
+</tr><tr><td>ListContains</td><td>8192</td><td>38,973.802 &mu;s</td><td>767.3130 &mu;s</td><td>1,618.5236 &mu;s</td><td>38,461.073 &mu;s</td>
+</tr><tr><td>SetContains</td><td>8192</td><td>1,670.934 &mu;s</td><td>34.6300 &mu;s</td><td>99.9155 &mu;s</td><td>1,651.400 &mu;s</td>
+</tr></tbody></table>
+</body>
+</html>

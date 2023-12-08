@@ -25,22 +25,58 @@ let m = [11; 20; 29; 32; 41; 50; 65; 72; 91; 99] |> List.map (fun x -> x, string
 
 ![Example tree](map1.png)
 
-DEMO: https://visualgo.net/en/bst
+---
 
-TODO: make video?
+```fsharp
+[<NoEquality; NoComparison>]
+[<AllowNullLiteral>]
+type internal MapTree<'Key, 'Value>(k: 'Key, v: 'Value, h: int) =
+    member _.Height = h
+    member _.Key = k
+    member _.Value = v
+    new(k: 'Key, v: 'Value) = MapTree(k, v, 1)
+
+[<NoEquality; NoComparison>]
+[<Sealed>]
+[<AllowNullLiteral>]
+type internal MapTreeNode<'Key, 'Value>
+    (
+        k: 'Key,
+        v: 'Value,
+        left: MapTree<'Key, 'Value>,
+        right: MapTree<'Key, 'Value>,
+        h: int
+    ) =
+    inherit MapTree<'Key, 'Value>(k, v, h)
+    member _.Left = left
+    member _.Right = right
+```
+
+---
+
+Insert = search + add
+
+```fsharp
+let m2 = m |> Map.add 35
+```
+
+![tree insert](tree-insert.gif)
+
+from https://visualgo.net/en/bst
 
 ---
 
 - keys must be comparable
 - searching for item (`Map.find`, `Map.containsKey`) by binary search
-TODO: video
 - insert, remove - unchanged part of tree is shared
-TODO: image
+![after insert](map_after_insert.png)
 - functions with predicate on key (`Map.pick`, `Map.findKey`), goes through whole tree! (in keys order)
 example
 - keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
 
 ---
+
+Creation of `Map` - List.groupBy
 
 ```fsharp
 [1..1000] |> List.groupBy (fun x -> x % 100) |> Map.ofList

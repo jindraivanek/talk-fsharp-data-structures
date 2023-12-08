@@ -15,7 +15,7 @@
 ---
 
 - BUT:
-- **referential transparency** can be achived even with mutable data structures
+- **referential transparency** can be achieved even with mutable data structures
 - mutable variables and data structures are perfectly fine when not leaking outside of function
 
 ---
@@ -34,7 +34,6 @@
 
             acc
 ```
-
 
 ---
 

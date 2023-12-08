@@ -58,13 +58,14 @@ div.it {
 <!-- header: '**F# Data Structures**' -->
 
 # Immutable Data Structures
+- no part of object can be changed after it's created
 
 ---
 
 # Why?
 - mutation is common source of bugs
 - immutable data structures are easier to reason about
-  - value  passed to a function, can't be changed
+  - value passed to a function, can't be changed
 - immutable data structures are thread-safe
 - bonus: memory efficient time travelling
 
@@ -74,12 +75,29 @@ div.it {
 - MYTH: to create new immutable value, you need to copy the whole thing
 - we can share parts of the structure between old and new value
 
+TODO: meme
+
+---
+
+# Structural sharing
+
 ![Structural sharing](structural_sharing.png)
 
 ---
 <!-- header: '**F# Data Structures**' -->
 
-# Structural sharing
+## F# (Linked) list
+
+```fsharp
+let listA = [1; 2; 3]
+let listA = 1 :: 2 :: 3 :: []
+```
+
+```fsharp
+type List<'T> = 
+| ([]) : 'T list
+| ( :: ) : Head: 'T * Tail: 'T list -> 'T list
+```
 
 ---
 
@@ -87,13 +105,23 @@ div.it {
 
 ```fsharp
 let listA = [1; 2; 3]
-let listA2 = 1 :: 2 :: 3 :: []
-let listB = [4; 1; 2; 3]
-let listB2 = 4 :: listA
+let listA = 1 :: 2 :: 3 :: []
+let listA2 = listA
+let listB = 4 :: listA
+let listB2 = [4] @ listA
 
 listA = listA2
 listB = listB2
 ```
+
+```mermaid
+graph LR;
+    listA(listA) --> 1 --> 2 --> 3 --> nil("[]")
+    listA2(listA2) --> 1
+    listB(listB) --> 4 --> listA
+    listB2(listB2) --> 4
+```
+TODO: remove mermaid
 
 ![Linked list sharing](linked_list_sharing.png)
 
@@ -171,22 +199,58 @@ let m = [11; 20; 29; 32; 41; 50; 65; 72; 91; 99] |> List.map (fun x -> x, string
 
 ![Example tree](map1.png)
 
-DEMO: https://visualgo.net/en/bst
+---
 
-TODO: make video?
+```fsharp
+[<NoEquality; NoComparison>]
+[<AllowNullLiteral>]
+type internal MapTree<'Key, 'Value>(k: 'Key, v: 'Value, h: int) =
+    member _.Height = h
+    member _.Key = k
+    member _.Value = v
+    new(k: 'Key, v: 'Value) = MapTree(k, v, 1)
+
+[<NoEquality; NoComparison>]
+[<Sealed>]
+[<AllowNullLiteral>]
+type internal MapTreeNode<'Key, 'Value>
+    (
+        k: 'Key,
+        v: 'Value,
+        left: MapTree<'Key, 'Value>,
+        right: MapTree<'Key, 'Value>,
+        h: int
+    ) =
+    inherit MapTree<'Key, 'Value>(k, v, h)
+    member _.Left = left
+    member _.Right = right
+```
+
+---
+
+Insert = search + add
+
+```fsharp
+let m2 = m |> Map.add 35
+```
+
+![tree insert](tree-insert.gif)
+
+from https://visualgo.net/en/bst
 
 ---
 
 - keys must be comparable
 - searching for item (`Map.find`, `Map.containsKey`) by binary search
-TODO: video
 - insert, remove - unchanged part of tree is shared
-TODO: image
+![after insert](map_after_insert.png)
 - functions with predicate on key (`Map.pick`, `Map.findKey`), goes through whole tree! (in keys order)
 example
 - keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
 
 ---
+
+Creation of `Map` - List.groupBy
 
 ```fsharp
 [1..1000] |> List.groupBy (fun x -> x % 100) |> Map.ofList
@@ -210,7 +274,8 @@ Like `Map`, but without values
 
 ## When to use Set instead of List?
 
-```
+<span style="font-size: 0.5em;">
+
 |       Method | Size |          Mean |       Error |      StdDev |
 |------------- |----- |--------------:|------------:|------------:|
 | **ListContains** |   **64** |      **2.159 μs** |   **0.0431 μs** |   **0.0998 μs** |
@@ -225,12 +290,17 @@ Like `Map`, but without values
 |  SetContains | 1024 |    149.908 μs |   1.2287 μs |   1.1494 μs |
 | **ListContains** | **8192** | **29,487.104 μs** | **114.3813 μs** | **101.3960 μs** |
 |  SetContains | 8192 |  1,548.127 μs |  19.6668 μs |  18.3963 μs |
-```
+
+</span>
+
+---
 
 ## Another important functions
-- `Set.union` - is faster than addinng all items from second set
+- `Set.union`
 - `Set.intersect`
 - `Set.difference`
+
+all of them (ab)using tree structure -> faster than the same on `list`
 
 ---
 <!-- header: '**F# Data Structures**' -->
@@ -240,6 +310,8 @@ Like `Map`, but without values
 ---
 
 ## Naming
+
+<small>
 
 Collection | F# | C#
 --- | --- | ---
@@ -251,6 +323,8 @@ Set (immutable set) | `Set<'T>` | `ImmutableHashSet<T>`
 Dictionary (mutable) | - | `Dictionary<K, V>`
 HashSet (mutable) | - | `HashSet<T>`
 Enumerable | `seq<'T>` | `IEnumerable<T>`
+
+</small>
 
 ---
 
@@ -300,7 +374,7 @@ There is cases where using `Seq` can be faster than `List`.
 Example: expensive filtering and then taking first *k* elements.
 
 ```fsharp
-xs |> Seq.filter (...) |> Seq.map (fun x -> expensiveFun x) |> Seq.tryFind (...)
+xs |> Seq.filter (fun x -> expensiveFun x) |> Seq.take k |> Seq.toList
 ```
 
 ---
@@ -313,6 +387,13 @@ Seq can be also used for generating (possible infinite) sequences.
 let cycle xs =
     let arr = Array.ofSeq xs
     Seq.initInfinite (fun i -> arr.[i % arr.Length])
+```
+
+Or sequnce of random numbers:
+
+```fsharp
+let r = System.Random()
+Seq.initInfinite (fun _ -> r.Next())
 ```
 
 ---
@@ -333,7 +414,7 @@ let cycle xs =
 ---
 
 - BUT:
-- **referential transparency** can be achived even with mutable data structures
+- **referential transparency** can be achieved even with mutable data structures
 - mutable variables and data structures are perfectly fine when not leaking outside of function
 
 ---
@@ -352,7 +433,6 @@ let cycle xs =
 
             acc
 ```
-
 
 ---
 
@@ -376,12 +456,34 @@ let memoizeBy projection f =
 - `ImmutableArray<T>` copying whole array on change (!)
 - `ImmutableDictionary<K, V>` is similar to `Map<K, V>`
 - `ImmutableStack<T>` is actually linked list - similar to `list<T>`
-- `ImmutableQueue<T>` - no std. F# equivalent
-
----
+- `ImmutableQueue<T>` - no std. F# equivalent\
 
 https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections
-<!-- header: '**F# Data Structures**' -->
+
+---
+<span style="font-size: 0.5em;">
+
+|                                     Method |       Mean |     Error |    StdDev |    Gen0 |   Gen1 | Allocated |
+|--- |-----------:|----------:|----------:|--------:|-------:|----------:|
+|                          **'int - List cons'** |   2.375 us | 0.0473 us | 0.1059 us |  2.5482 | 0.4234 |   32000 B |
+|                 'int - ImmutableList cons' |  95.410 us | 1.7462 us | 1.6334 us | 40.0391 | 9.6436 |  502896 B |
+|                       **'int - List.reverse'** |   2.511 us | 0.0413 us | 0.0606 us |  2.5482 | 0.4234 |   32000 B |
+|              'int - ImmutableList.reverse' |  71.121 us | 0.6854 us | 0.6411 us |  3.7842 | 0.8545 |   48024 B |
+|                           **'int - List.map'** |   2.781 us | 0.0543 us | 0.0687 us |  2.5482 | 0.5074 |   32000 B |
+|   'int - ImmutableList map by LINQ Select' |  31.375 us | 0.5986 us | 0.7571 us |  4.1504 | 0.9766 |   52200 B |
+|       'int - ImmutableList map by SetItem' | 113.180 us | 2.1415 us | 2.4661 us | 36.2549 |      - |  455376 B |
+|       'int - ImmutableList map by Builder' |  36.315 us | 0.6762 us | 0.6944 us |  3.7842 | 1.0376 |   48072 B |
+|                        **'int - List.filter'** |   1.756 us | 0.0350 us | 0.0623 us |  1.2741 | 0.1411 |   16000 B |
+| 'int - ImmutableList filter by LINQ Where' |  13.979 us | 0.2794 us | 0.3825 us |  2.2736 | 0.2747 |   28672 B |
+|  'int - ImmutableList filter by RemoveAll' |  57.953 us | 0.9039 us | 0.8455 us |  2.3804 | 0.2441 |   30376 B |
+|                        **'int - List.reduce'** |   1.095 us | 0.0148 us | 0.0138 us |       - |      - |         - |
+|               'int - ImmutableList.reduce' |   4.495 us | 0.0656 us | 0.0806 us |  0.0076 |      - |     112 B |
+|                      **'int - List.contains'** |   5.087 us | 0.0649 us | 0.0607 us |       - |      - |      40 B |
+|             'int - ImmutableList.contains' |  12.743 us | 0.1634 us | 0.1448 us |       - |      - |      72 B |
+
+</span>
+
+---<!-- header: '**F# Data Structures**' -->
 
 # QUESTIONS?
 

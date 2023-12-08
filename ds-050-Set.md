@@ -15,7 +15,8 @@ Like `Map`, but without values
 
 ## When to use Set instead of List?
 
-```
+<span style="font-size: 0.5em;">
+
 |       Method | Size |          Mean |       Error |      StdDev |
 |------------- |----- |--------------:|------------:|------------:|
 | **ListContains** |   **64** |      **2.159 μs** |   **0.0431 μs** |   **0.0998 μs** |
@@ -30,11 +31,16 @@ Like `Map`, but without values
 |  SetContains | 1024 |    149.908 μs |   1.2287 μs |   1.1494 μs |
 | **ListContains** | **8192** | **29,487.104 μs** | **114.3813 μs** | **101.3960 μs** |
 |  SetContains | 8192 |  1,548.127 μs |  19.6668 μs |  18.3963 μs |
-```
+
+</span>
+
+---
 
 ## Another important functions
-- `Set.union` - is faster than addinng all items from second set
+- `Set.union`
 - `Set.intersect`
 - `Set.difference`
+
+all of them (ab)using tree structure -> faster than the same on `list`
 
 ---

@@ -6,6 +6,8 @@
 
 ## Naming
 
+<small>
+
 Collection | F# | C#
 --- | --- | ---
 Linked list | `list<'T>` | `LinkedList<T>`
@@ -17,6 +19,7 @@ Dictionary (mutable) | - | `Dictionary<K, V>`
 HashSet (mutable) | - | `HashSet<T>`
 Enumerable | `seq<'T>` | `IEnumerable<T>`
 
+</small>
 ---
 
 # Other useful C# collections

@@ -37,7 +37,7 @@ There is cases where using `Seq` can be faster than `List`.
 Example: expensive filtering and then taking first *k* elements.
 
 ```fsharp
-xs |> Seq.filter (...) |> Seq.map (fun x -> expensiveFun x) |> Seq.tryFind (...)
+xs |> Seq.filter (fun x -> expensiveFun x) |> Seq.take k |> Seq.toList
 ```
 
 ---
@@ -50,6 +50,13 @@ Seq can be also used for generating (possible infinite) sequences.
 let cycle xs =
     let arr = Array.ofSeq xs
     Seq.initInfinite (fun i -> arr.[i % arr.Length])
+```
+
+Or sequnce of random numbers:
+
+```fsharp
+let r = System.Random()
+Seq.initInfinite (fun _ -> r.Next())
 ```
 
 ---

@@ -1,6 +1,17 @@
 <!-- header: '**F# Data Structures**' -->
 
-# Structural sharing
+## F# (Linked) list
+
+```fsharp
+let listA = [1; 2; 3]
+let listA = 1 :: 2 :: 3 :: []
+```
+
+```fsharp
+type List<'T> = 
+| ([]) : 'T list
+| ( :: ) : Head: 'T * Tail: 'T list -> 'T list
+```
 
 ---
 
@@ -19,12 +30,12 @@ listB = listB2
 
 ```mermaid
 graph LR;
-    listA(listA) --> 1 --> 2 --> 3 --> nil
+    listA(listA) --> 1 --> 2 --> 3 --> nil("[]")
     listA2(listA2) --> 1
     listB(listB) --> 4 --> listA
     listB2(listB2) --> 4
 ```
-TODO: update image
+TODO: remove mermaid
 
 ![Linked list sharing](linked_list_sharing.png)
 
