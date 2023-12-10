@@ -2,10 +2,6 @@
 
 # Comparison with C# collections
 
----
-
-## Naming
-
 <style scoped>
 table {
   font-size: 30px;

@@ -44,6 +44,8 @@ let s = [1; 7; 3; 9; 5; 6; 2; 8; 4] |> set
 
 ![bg contain](tree-inserts.gif)
 
+from https://visualgo.net/en/bst
+
 ---
 
 * values must be comparable
@@ -92,11 +94,11 @@ table {
 * `Set.intersect`
 * `Set.difference`
 
-all of them works recursively on tree structure -> faster than the same on `list`
+* all of them work recursively on tree structure -> faster than the same on `list`
 
 * `Set.isSubset`
 * `Set.isSuperset`
 
-try find all elements of first set in second
+* try to find all elements of first set in second
 
 ---

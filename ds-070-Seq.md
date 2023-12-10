@@ -28,7 +28,7 @@ Only elements that pass the filter are computed.
 
 ## `seq<'t>`
 
-There is cases where using `Seq` can be faster than `List`.
+There are cases where using `Seq` can be faster than `List`.
 
 Example: expensive filtering and then taking first *k* elements.
 
