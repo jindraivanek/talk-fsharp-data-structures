@@ -1,0 +1,932 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 12 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+// start dotnet  restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7
+// command took 0.93s and exited with 0
+// start dotnet  build -c Release --no-restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7
+// command took 14s and exited with 1
+// start dotnet  build -c Release --no-restore --no-dependencies /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7
+// command took 2.22s and exited with 0
+// ***** Done, took 00:00:17 (17.21 sec)   *****
+// Found 12 benchmarks:
+//   MapVsConcestorDict.MapFind: DefaultJob [Size=64]
+//   MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=64]
+//   MapVsConcestorDict.MapFind: DefaultJob [Size=128]
+//   MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=128]
+//   MapVsConcestorDict.MapFind: DefaultJob [Size=256]
+//   MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=256]
+//   MapVsConcestorDict.MapFind: DefaultJob [Size=512]
+//   MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=512]
+//   MapVsConcestorDict.MapFind: DefaultJob [Size=1024]
+//   MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=1024]
+//   MapVsConcestorDict.MapFind: DefaultJob [Size=8192]
+//   MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=8192]
+
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.MapFind: DefaultJob [Size=64]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1240 1244 --benchmarkName "ListBenchmarks+MapVsConcestorDict.MapFind(Size: 64)" --job Default --benchmarkId 0 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 124500.00 ns, 124.5000 us/op
+WorkloadJitting  1: 1 op, 76540000.00 ns, 76.5400 ms/op
+
+WorkloadPilot    1: 2 op, 4039300.00 ns, 2.0196 ms/op
+WorkloadPilot    2: 3 op, 5332000.00 ns, 1.7773 ms/op
+WorkloadPilot    3: 4 op, 5629200.00 ns, 1.4073 ms/op
+WorkloadPilot    4: 5 op, 7322300.00 ns, 1.4645 ms/op
+WorkloadPilot    5: 6 op, 8817400.00 ns, 1.4696 ms/op
+WorkloadPilot    6: 7 op, 11043900.00 ns, 1.5777 ms/op
+WorkloadPilot    7: 8 op, 12025500.00 ns, 1.5032 ms/op
+WorkloadPilot    8: 9 op, 11907100.00 ns, 1.3230 ms/op
+WorkloadPilot    9: 10 op, 14336900.00 ns, 1.4337 ms/op
+WorkloadPilot   10: 11 op, 16135200.00 ns, 1.4668 ms/op
+WorkloadPilot   11: 12 op, 17158000.00 ns, 1.4298 ms/op
+WorkloadPilot   12: 13 op, 18489100.00 ns, 1.4222 ms/op
+WorkloadPilot   13: 14 op, 18821700.00 ns, 1.3444 ms/op
+WorkloadPilot   14: 15 op, 7887000.00 ns, 525.8000 us/op
+WorkloadPilot   15: 16 op, 8008700.00 ns, 500.5438 us/op
+WorkloadPilot   16: 32 op, 14874100.00 ns, 464.8156 us/op
+WorkloadPilot   17: 64 op, 29127200.00 ns, 455.1125 us/op
+WorkloadPilot   18: 128 op, 56922200.00 ns, 444.7047 us/op
+WorkloadPilot   19: 256 op, 108056700.00 ns, 422.0965 us/op
+WorkloadPilot   20: 512 op, 213800600.00 ns, 417.5793 us/op
+WorkloadPilot   21: 1024 op, 478941000.00 ns, 467.7158 us/op
+WorkloadPilot   22: 2048 op, 889085000.00 ns, 434.1235 us/op
+
+WorkloadWarmup   1: 2048 op, 893252200.00 ns, 436.1583 us/op
+WorkloadWarmup   2: 2048 op, 921863200.00 ns, 450.1285 us/op
+WorkloadWarmup   3: 2048 op, 985089500.00 ns, 481.0007 us/op
+WorkloadWarmup   4: 2048 op, 945266600.00 ns, 461.5560 us/op
+WorkloadWarmup   5: 2048 op, 901198000.00 ns, 440.0381 us/op
+WorkloadWarmup   6: 2048 op, 900811900.00 ns, 439.8496 us/op
+WorkloadWarmup   7: 2048 op, 880564700.00 ns, 429.9632 us/op
+WorkloadWarmup   8: 2048 op, 890068100.00 ns, 434.6036 us/op
+WorkloadWarmup   9: 2048 op, 873281900.00 ns, 426.4072 us/op
+
+// BeforeActualRun
+WorkloadActual   1: 2048 op, 874560000.00 ns, 427.0312 us/op
+WorkloadActual   2: 2048 op, 866450200.00 ns, 423.0714 us/op
+WorkloadActual   3: 2048 op, 851019000.00 ns, 415.5366 us/op
+WorkloadActual   4: 2048 op, 855445300.00 ns, 417.6979 us/op
+WorkloadActual   5: 2048 op, 878478700.00 ns, 428.9447 us/op
+WorkloadActual   6: 2048 op, 893055500.00 ns, 436.0623 us/op
+WorkloadActual   7: 2048 op, 887582600.00 ns, 433.3899 us/op
+WorkloadActual   8: 2048 op, 868843200.00 ns, 424.2398 us/op
+WorkloadActual   9: 2048 op, 859099400.00 ns, 419.4821 us/op
+WorkloadActual  10: 2048 op, 886866400.00 ns, 433.0402 us/op
+WorkloadActual  11: 2048 op, 888378600.00 ns, 433.7786 us/op
+WorkloadActual  12: 2048 op, 893444500.00 ns, 436.2522 us/op
+WorkloadActual  13: 2048 op, 893560000.00 ns, 436.3086 us/op
+WorkloadActual  14: 2048 op, 871503000.00 ns, 425.5386 us/op
+WorkloadActual  15: 2048 op, 878951300.00 ns, 429.1754 us/op
+
+// AfterActualRun
+WorkloadResult   1: 2048 op, 874560000.00 ns, 427.0312 us/op
+WorkloadResult   2: 2048 op, 866450200.00 ns, 423.0714 us/op
+WorkloadResult   3: 2048 op, 851019000.00 ns, 415.5366 us/op
+WorkloadResult   4: 2048 op, 855445300.00 ns, 417.6979 us/op
+WorkloadResult   5: 2048 op, 878478700.00 ns, 428.9447 us/op
+WorkloadResult   6: 2048 op, 893055500.00 ns, 436.0623 us/op
+WorkloadResult   7: 2048 op, 887582600.00 ns, 433.3899 us/op
+WorkloadResult   8: 2048 op, 868843200.00 ns, 424.2398 us/op
+WorkloadResult   9: 2048 op, 859099400.00 ns, 419.4821 us/op
+WorkloadResult  10: 2048 op, 886866400.00 ns, 433.0402 us/op
+WorkloadResult  11: 2048 op, 888378600.00 ns, 433.7786 us/op
+WorkloadResult  12: 2048 op, 893444500.00 ns, 436.2522 us/op
+WorkloadResult  13: 2048 op, 893560000.00 ns, 436.3086 us/op
+WorkloadResult  14: 2048 op, 871503000.00 ns, 425.5386 us/op
+WorkloadResult  15: 2048 op, 878951300.00 ns, 429.1754 us/op
+
+// AfterAll
+// Benchmark Process 37408 has exited with code 0.
+
+Mean = 427.970 μs, StdErr = 1.788 μs (0.42%), N = 15, StdDev = 6.927 μs
+Min = 415.537 μs, Q1 = 423.656 μs, Median = 428.945 μs, Q3 = 433.584 μs, Max = 436.309 μs
+IQR = 9.929 μs, LowerFence = 408.763 μs, UpperFence = 448.477 μs
+ConfidenceInterval = [420.565 μs; 435.375 μs] (CI 99.9%), Margin = 7.405 μs (1.73% of Mean)
+Skewness = -0.33, Kurtosis = 1.67, MValue = 2
+
+// ** Remained 11 (91.7%) benchmark(s) to run. Estimated finish 2023-12-09 9:28 (0h 4m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=64]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1828 1772 --benchmarkName "ListBenchmarks+MapVsConcestorDict.ConcestorDictFind(Size: 64)" --job Default --benchmarkId 1 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 121100.00 ns, 121.1000 us/op
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at ListBenchmarks.MapVsConcestorDict.get_ConcestorDictOfInts() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 270
+   at ListBenchmarks.MapVsConcestorDict.ConcestorDictFind() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 280
+   at BenchmarkDotNet.Autogenerated.Runnable_1.WorkloadActionNoUnroll(Int64 invokeCount) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 519
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_1.Run(IHost host, String benchmarkName) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 376
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 57
+// AfterAll
+No Workload Results were obtained from the run.
+// Benchmark Process 43160 has exited with code -1.
+
+// ** Remained 10 (83.3%) benchmark(s) to run. Estimated finish 2023-12-09 9:26 (0h 2m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.MapFind: DefaultJob [Size=128]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1852 1844 --benchmarkName "ListBenchmarks+MapVsConcestorDict.MapFind(Size: 128)" --job Default --benchmarkId 2 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 167900.00 ns, 167.9000 us/op
+WorkloadJitting  1: 1 op, 16754500.00 ns, 16.7545 ms/op
+
+OverheadJitting  2: 16 op, 114400.00 ns, 7.1500 us/op
+WorkloadJitting  2: 16 op, 101150700.00 ns, 6.3219 ms/op
+
+WorkloadPilot    1: 16 op, 97509300.00 ns, 6.0943 ms/op
+WorkloadPilot    2: 32 op, 180382800.00 ns, 5.6370 ms/op
+WorkloadPilot    3: 64 op, 122780400.00 ns, 1.9184 ms/op
+WorkloadPilot    4: 128 op, 251547700.00 ns, 1.9652 ms/op
+WorkloadPilot    5: 256 op, 519123300.00 ns, 2.0278 ms/op
+
+OverheadWarmup   1: 256 op, 1600.00 ns, 6.2500 ns/op
+OverheadWarmup   2: 256 op, 600.00 ns, 2.3438 ns/op
+OverheadWarmup   3: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadWarmup   4: 256 op, 900.00 ns, 3.5156 ns/op
+OverheadWarmup   5: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadWarmup   6: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadWarmup   7: 256 op, 600.00 ns, 2.3438 ns/op
+
+OverheadActual   1: 256 op, 900.00 ns, 3.5156 ns/op
+OverheadActual   2: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadActual   3: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadActual   4: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadActual   5: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadActual   6: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadActual   7: 256 op, 800.00 ns, 3.1250 ns/op
+OverheadActual   8: 256 op, 900.00 ns, 3.5156 ns/op
+OverheadActual   9: 256 op, 800.00 ns, 3.1250 ns/op
+OverheadActual  10: 256 op, 900.00 ns, 3.5156 ns/op
+OverheadActual  11: 256 op, 800.00 ns, 3.1250 ns/op
+OverheadActual  12: 256 op, 800.00 ns, 3.1250 ns/op
+OverheadActual  13: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadActual  14: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadActual  15: 256 op, 800.00 ns, 3.1250 ns/op
+OverheadActual  16: 256 op, 800.00 ns, 3.1250 ns/op
+OverheadActual  17: 256 op, 700.00 ns, 2.7344 ns/op
+OverheadActual  18: 256 op, 600.00 ns, 2.3438 ns/op
+OverheadActual  19: 256 op, 1500.00 ns, 5.8594 ns/op
+OverheadActual  20: 256 op, 800.00 ns, 3.1250 ns/op
+
+WorkloadWarmup   1: 256 op, 504087900.00 ns, 1.9691 ms/op
+WorkloadWarmup   2: 256 op, 523482400.00 ns, 2.0449 ms/op
+WorkloadWarmup   3: 256 op, 492234400.00 ns, 1.9228 ms/op
+WorkloadWarmup   4: 256 op, 501614700.00 ns, 1.9594 ms/op
+WorkloadWarmup   5: 256 op, 493799000.00 ns, 1.9289 ms/op
+WorkloadWarmup   6: 256 op, 517596200.00 ns, 2.0219 ms/op
+
+// BeforeActualRun
+WorkloadActual   1: 256 op, 492326200.00 ns, 1.9231 ms/op
+WorkloadActual   2: 256 op, 508944300.00 ns, 1.9881 ms/op
+WorkloadActual   3: 256 op, 497641700.00 ns, 1.9439 ms/op
+WorkloadActual   4: 256 op, 504861700.00 ns, 1.9721 ms/op
+WorkloadActual   5: 256 op, 506615800.00 ns, 1.9790 ms/op
+WorkloadActual   6: 256 op, 519368600.00 ns, 2.0288 ms/op
+WorkloadActual   7: 256 op, 507770200.00 ns, 1.9835 ms/op
+WorkloadActual   8: 256 op, 505792000.00 ns, 1.9757 ms/op
+WorkloadActual   9: 256 op, 506047900.00 ns, 1.9767 ms/op
+WorkloadActual  10: 256 op, 503511000.00 ns, 1.9668 ms/op
+WorkloadActual  11: 256 op, 504607200.00 ns, 1.9711 ms/op
+WorkloadActual  12: 256 op, 511681800.00 ns, 1.9988 ms/op
+WorkloadActual  13: 256 op, 505590400.00 ns, 1.9750 ms/op
+WorkloadActual  14: 256 op, 510382800.00 ns, 1.9937 ms/op
+WorkloadActual  15: 256 op, 507142300.00 ns, 1.9810 ms/op
+
+// AfterActualRun
+WorkloadResult   1: 256 op, 492325400.00 ns, 1.9231 ms/op
+WorkloadResult   2: 256 op, 508943500.00 ns, 1.9881 ms/op
+WorkloadResult   3: 256 op, 497640900.00 ns, 1.9439 ms/op
+WorkloadResult   4: 256 op, 504860900.00 ns, 1.9721 ms/op
+WorkloadResult   5: 256 op, 506615000.00 ns, 1.9790 ms/op
+WorkloadResult   6: 256 op, 507769400.00 ns, 1.9835 ms/op
+WorkloadResult   7: 256 op, 505791200.00 ns, 1.9757 ms/op
+WorkloadResult   8: 256 op, 506047100.00 ns, 1.9767 ms/op
+WorkloadResult   9: 256 op, 503510200.00 ns, 1.9668 ms/op
+WorkloadResult  10: 256 op, 504606400.00 ns, 1.9711 ms/op
+WorkloadResult  11: 256 op, 511681000.00 ns, 1.9988 ms/op
+WorkloadResult  12: 256 op, 505589600.00 ns, 1.9750 ms/op
+WorkloadResult  13: 256 op, 510382000.00 ns, 1.9937 ms/op
+WorkloadResult  14: 256 op, 507141500.00 ns, 1.9810 ms/op
+
+// AfterAll
+// Benchmark Process 60320 has exited with code 0.
+
+Mean = 1.973 ms, StdErr = 0.005 ms (0.26%), N = 14, StdDev = 0.019 ms
+Min = 1.923 ms, Q1 = 1.971 ms, Median = 1.976 ms, Q3 = 1.983 ms, Max = 1.999 ms
+IQR = 0.011 ms, LowerFence = 1.954 ms, UpperFence = 2.000 ms
+ConfidenceInterval = [1.952 ms; 1.995 ms] (CI 99.9%), Margin = 0.022 ms (1.11% of Mean)
+Skewness = -1.21, Kurtosis = 3.89, MValue = 2
+
+// ** Remained 9 (75.0%) benchmark(s) to run. Estimated finish 2023-12-09 9:26 (0h 1m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=128]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1888 1880 --benchmarkName "ListBenchmarks+MapVsConcestorDict.ConcestorDictFind(Size: 128)" --job Default --benchmarkId 3 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 119900.00 ns, 119.9000 us/op
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at ListBenchmarks.MapVsConcestorDict.get_ConcestorDictOfInts() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 270
+   at ListBenchmarks.MapVsConcestorDict.ConcestorDictFind() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 280
+   at BenchmarkDotNet.Autogenerated.Runnable_3.WorkloadActionNoUnroll(Int64 invokeCount) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 919
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_3.Run(IHost host, String benchmarkName) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 776
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 57
+// AfterAll
+No Workload Results were obtained from the run.
+// Benchmark Process 46804 has exited with code -1.
+
+// ** Remained 8 (66.7%) benchmark(s) to run. Estimated finish 2023-12-09 9:25 (0h 1m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.MapFind: DefaultJob [Size=256]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 592 1264 --benchmarkName "ListBenchmarks+MapVsConcestorDict.MapFind(Size: 256)" --job Default --benchmarkId 4 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 212200.00 ns, 212.2000 us/op
+WorkloadJitting  1: 1 op, 47153100.00 ns, 47.1531 ms/op
+
+WorkloadPilot    1: 2 op, 59325800.00 ns, 29.6629 ms/op
+WorkloadPilot    2: 3 op, 84962300.00 ns, 28.3208 ms/op
+WorkloadPilot    3: 4 op, 89632700.00 ns, 22.4082 ms/op
+WorkloadPilot    4: 5 op, 49428700.00 ns, 9.8857 ms/op
+WorkloadPilot    5: 6 op, 58950300.00 ns, 9.8250 ms/op
+WorkloadPilot    6: 7 op, 70396200.00 ns, 10.0566 ms/op
+WorkloadPilot    7: 8 op, 78132600.00 ns, 9.7666 ms/op
+WorkloadPilot    8: 9 op, 87763400.00 ns, 9.7515 ms/op
+WorkloadPilot    9: 10 op, 95328400.00 ns, 9.5328 ms/op
+WorkloadPilot   10: 11 op, 102437600.00 ns, 9.3125 ms/op
+WorkloadPilot   11: 12 op, 122645700.00 ns, 10.2205 ms/op
+WorkloadPilot   12: 13 op, 131755900.00 ns, 10.1351 ms/op
+WorkloadPilot   13: 14 op, 130733800.00 ns, 9.3381 ms/op
+WorkloadPilot   14: 15 op, 140882000.00 ns, 9.3921 ms/op
+WorkloadPilot   15: 16 op, 148913300.00 ns, 9.3071 ms/op
+WorkloadPilot   16: 32 op, 299738000.00 ns, 9.3668 ms/op
+WorkloadPilot   17: 64 op, 603736900.00 ns, 9.4334 ms/op
+
+WorkloadWarmup   1: 64 op, 595492200.00 ns, 9.3046 ms/op
+WorkloadWarmup   2: 64 op, 613254800.00 ns, 9.5821 ms/op
+WorkloadWarmup   3: 64 op, 607227500.00 ns, 9.4879 ms/op
+WorkloadWarmup   4: 64 op, 606281000.00 ns, 9.4731 ms/op
+WorkloadWarmup   5: 64 op, 613885900.00 ns, 9.5920 ms/op
+WorkloadWarmup   6: 64 op, 607548000.00 ns, 9.4929 ms/op
+
+// BeforeActualRun
+WorkloadActual   1: 64 op, 645988800.00 ns, 10.0936 ms/op
+WorkloadActual   2: 64 op, 618906900.00 ns, 9.6704 ms/op
+WorkloadActual   3: 64 op, 606576800.00 ns, 9.4778 ms/op
+WorkloadActual   4: 64 op, 590083900.00 ns, 9.2201 ms/op
+WorkloadActual   5: 64 op, 612075000.00 ns, 9.5637 ms/op
+WorkloadActual   6: 64 op, 614945500.00 ns, 9.6085 ms/op
+WorkloadActual   7: 64 op, 618711300.00 ns, 9.6674 ms/op
+WorkloadActual   8: 64 op, 613578300.00 ns, 9.5872 ms/op
+WorkloadActual   9: 64 op, 611732000.00 ns, 9.5583 ms/op
+WorkloadActual  10: 64 op, 608796100.00 ns, 9.5124 ms/op
+WorkloadActual  11: 64 op, 611978200.00 ns, 9.5622 ms/op
+WorkloadActual  12: 64 op, 597002900.00 ns, 9.3282 ms/op
+WorkloadActual  13: 64 op, 606442500.00 ns, 9.4757 ms/op
+WorkloadActual  14: 64 op, 600475600.00 ns, 9.3824 ms/op
+WorkloadActual  15: 64 op, 614464900.00 ns, 9.6010 ms/op
+
+// AfterActualRun
+WorkloadResult   1: 64 op, 618906900.00 ns, 9.6704 ms/op
+WorkloadResult   2: 64 op, 606576800.00 ns, 9.4778 ms/op
+WorkloadResult   3: 64 op, 590083900.00 ns, 9.2201 ms/op
+WorkloadResult   4: 64 op, 612075000.00 ns, 9.5637 ms/op
+WorkloadResult   5: 64 op, 614945500.00 ns, 9.6085 ms/op
+WorkloadResult   6: 64 op, 618711300.00 ns, 9.6674 ms/op
+WorkloadResult   7: 64 op, 613578300.00 ns, 9.5872 ms/op
+WorkloadResult   8: 64 op, 611732000.00 ns, 9.5583 ms/op
+WorkloadResult   9: 64 op, 608796100.00 ns, 9.5124 ms/op
+WorkloadResult  10: 64 op, 611978200.00 ns, 9.5622 ms/op
+WorkloadResult  11: 64 op, 597002900.00 ns, 9.3282 ms/op
+WorkloadResult  12: 64 op, 606442500.00 ns, 9.4757 ms/op
+WorkloadResult  13: 64 op, 600475600.00 ns, 9.3824 ms/op
+WorkloadResult  14: 64 op, 614464900.00 ns, 9.6010 ms/op
+
+// AfterAll
+// Benchmark Process 8968 has exited with code 0.
+
+Mean = 9.515 ms, StdErr = 0.035 ms (0.36%), N = 14, StdDev = 0.129 ms
+Min = 9.220 ms, Q1 = 9.476 ms, Median = 9.560 ms, Q3 = 9.598 ms, Max = 9.670 ms
+IQR = 0.121 ms, LowerFence = 9.294 ms, UpperFence = 9.780 ms
+ConfidenceInterval = [9.369 ms; 9.661 ms] (CI 99.9%), Margin = 0.146 ms (1.53% of Mean)
+Skewness = -0.84, Kurtosis = 2.66, MValue = 2
+
+// ** Remained 7 (58.3%) benchmark(s) to run. Estimated finish 2023-12-09 9:25 (0h 1m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=256]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1908 1904 --benchmarkName "ListBenchmarks+MapVsConcestorDict.ConcestorDictFind(Size: 256)" --job Default --benchmarkId 5 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 119400.00 ns, 119.4000 us/op
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at ListBenchmarks.MapVsConcestorDict.get_ConcestorDictOfInts() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 270
+   at ListBenchmarks.MapVsConcestorDict.ConcestorDictFind() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 280
+   at BenchmarkDotNet.Autogenerated.Runnable_5.WorkloadActionNoUnroll(Int64 invokeCount) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 1319
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_5.Run(IHost host, String benchmarkName) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 1176
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 57
+// AfterAll
+No Workload Results were obtained from the run.
+// Benchmark Process 36436 has exited with code -1.
+
+// ** Remained 6 (50.0%) benchmark(s) to run. Estimated finish 2023-12-09 9:25 (0h 0m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.MapFind: DefaultJob [Size=512]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1880 1944 --benchmarkName "ListBenchmarks+MapVsConcestorDict.MapFind(Size: 512)" --job Default --benchmarkId 6 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 125900.00 ns, 125.9000 us/op
+WorkloadJitting  1: 1 op, 142763300.00 ns, 142.7633 ms/op
+
+WorkloadPilot    1: 2 op, 173509200.00 ns, 86.7546 ms/op
+WorkloadPilot    2: 3 op, 133016300.00 ns, 44.3388 ms/op
+WorkloadPilot    3: 4 op, 184561000.00 ns, 46.1403 ms/op
+WorkloadPilot    4: 5 op, 222637600.00 ns, 44.5275 ms/op
+WorkloadPilot    5: 6 op, 270488300.00 ns, 45.0814 ms/op
+WorkloadPilot    6: 7 op, 318312700.00 ns, 45.4732 ms/op
+WorkloadPilot    7: 8 op, 365548200.00 ns, 45.6935 ms/op
+WorkloadPilot    8: 9 op, 410910500.00 ns, 45.6567 ms/op
+WorkloadPilot    9: 10 op, 450766100.00 ns, 45.0766 ms/op
+WorkloadPilot   10: 11 op, 486357300.00 ns, 44.2143 ms/op
+WorkloadPilot   11: 12 op, 523962000.00 ns, 43.6635 ms/op
+
+WorkloadWarmup   1: 12 op, 577903100.00 ns, 48.1586 ms/op
+WorkloadWarmup   2: 12 op, 621983800.00 ns, 51.8320 ms/op
+WorkloadWarmup   3: 12 op, 590596900.00 ns, 49.2164 ms/op
+WorkloadWarmup   4: 12 op, 563517600.00 ns, 46.9598 ms/op
+WorkloadWarmup   5: 12 op, 584110300.00 ns, 48.6759 ms/op
+WorkloadWarmup   6: 12 op, 536618100.00 ns, 44.7182 ms/op
+
+// BeforeActualRun
+WorkloadActual   1: 12 op, 576044900.00 ns, 48.0037 ms/op
+WorkloadActual   2: 12 op, 541924200.00 ns, 45.1604 ms/op
+WorkloadActual   3: 12 op, 551670500.00 ns, 45.9725 ms/op
+WorkloadActual   4: 12 op, 548332900.00 ns, 45.6944 ms/op
+WorkloadActual   5: 12 op, 539967200.00 ns, 44.9973 ms/op
+WorkloadActual   6: 12 op, 544760300.00 ns, 45.3967 ms/op
+WorkloadActual   7: 12 op, 530571700.00 ns, 44.2143 ms/op
+WorkloadActual   8: 12 op, 533519100.00 ns, 44.4599 ms/op
+WorkloadActual   9: 12 op, 531655100.00 ns, 44.3046 ms/op
+WorkloadActual  10: 12 op, 533560600.00 ns, 44.4634 ms/op
+WorkloadActual  11: 12 op, 528507100.00 ns, 44.0423 ms/op
+WorkloadActual  12: 12 op, 523814400.00 ns, 43.6512 ms/op
+WorkloadActual  13: 12 op, 526231900.00 ns, 43.8527 ms/op
+WorkloadActual  14: 12 op, 559227200.00 ns, 46.6023 ms/op
+WorkloadActual  15: 12 op, 540331600.00 ns, 45.0276 ms/op
+WorkloadActual  16: 12 op, 569883000.00 ns, 47.4903 ms/op
+WorkloadActual  17: 12 op, 526170600.00 ns, 43.8476 ms/op
+WorkloadActual  18: 12 op, 543590100.00 ns, 45.2992 ms/op
+WorkloadActual  19: 12 op, 557982900.00 ns, 46.4986 ms/op
+WorkloadActual  20: 12 op, 532053600.00 ns, 44.3378 ms/op
+WorkloadActual  21: 12 op, 524607400.00 ns, 43.7173 ms/op
+WorkloadActual  22: 12 op, 529223600.00 ns, 44.1020 ms/op
+WorkloadActual  23: 12 op, 555874600.00 ns, 46.3229 ms/op
+WorkloadActual  24: 12 op, 526522400.00 ns, 43.8769 ms/op
+WorkloadActual  25: 12 op, 530030000.00 ns, 44.1692 ms/op
+WorkloadActual  26: 12 op, 530907700.00 ns, 44.2423 ms/op
+
+// AfterActualRun
+WorkloadResult   1: 12 op, 541924200.00 ns, 45.1604 ms/op
+WorkloadResult   2: 12 op, 551670500.00 ns, 45.9725 ms/op
+WorkloadResult   3: 12 op, 548332900.00 ns, 45.6944 ms/op
+WorkloadResult   4: 12 op, 539967200.00 ns, 44.9973 ms/op
+WorkloadResult   5: 12 op, 544760300.00 ns, 45.3967 ms/op
+WorkloadResult   6: 12 op, 530571700.00 ns, 44.2143 ms/op
+WorkloadResult   7: 12 op, 533519100.00 ns, 44.4599 ms/op
+WorkloadResult   8: 12 op, 531655100.00 ns, 44.3046 ms/op
+WorkloadResult   9: 12 op, 533560600.00 ns, 44.4634 ms/op
+WorkloadResult  10: 12 op, 528507100.00 ns, 44.0423 ms/op
+WorkloadResult  11: 12 op, 523814400.00 ns, 43.6512 ms/op
+WorkloadResult  12: 12 op, 526231900.00 ns, 43.8527 ms/op
+WorkloadResult  13: 12 op, 559227200.00 ns, 46.6023 ms/op
+WorkloadResult  14: 12 op, 540331600.00 ns, 45.0276 ms/op
+WorkloadResult  15: 12 op, 569883000.00 ns, 47.4903 ms/op
+WorkloadResult  16: 12 op, 526170600.00 ns, 43.8476 ms/op
+WorkloadResult  17: 12 op, 543590100.00 ns, 45.2992 ms/op
+WorkloadResult  18: 12 op, 557982900.00 ns, 46.4986 ms/op
+WorkloadResult  19: 12 op, 532053600.00 ns, 44.3378 ms/op
+WorkloadResult  20: 12 op, 524607400.00 ns, 43.7173 ms/op
+WorkloadResult  21: 12 op, 529223600.00 ns, 44.1020 ms/op
+WorkloadResult  22: 12 op, 555874600.00 ns, 46.3229 ms/op
+WorkloadResult  23: 12 op, 526522400.00 ns, 43.8769 ms/op
+WorkloadResult  24: 12 op, 530030000.00 ns, 44.1692 ms/op
+WorkloadResult  25: 12 op, 530907700.00 ns, 44.2423 ms/op
+
+// AfterAll
+// Benchmark Process 50120 has exited with code 0.
+
+Mean = 44.870 ms, StdErr = 0.210 ms (0.47%), N = 25, StdDev = 1.051 ms
+Min = 43.651 ms, Q1 = 44.102 ms, Median = 44.460 ms, Q3 = 45.397 ms, Max = 47.490 ms
+IQR = 1.295 ms, LowerFence = 42.160 ms, UpperFence = 47.339 ms
+ConfidenceInterval = [44.082 ms; 45.657 ms] (CI 99.9%), Margin = 0.787 ms (1.75% of Mean)
+Skewness = 0.82, Kurtosis = 2.57, MValue = 2
+
+// ** Remained 5 (41.7%) benchmark(s) to run. Estimated finish 2023-12-09 9:25 (0h 0m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=512]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1296 1248 --benchmarkName "ListBenchmarks+MapVsConcestorDict.ConcestorDictFind(Size: 512)" --job Default --benchmarkId 7 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 119400.00 ns, 119.4000 us/op
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at ListBenchmarks.MapVsConcestorDict.get_ConcestorDictOfInts() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 270
+   at ListBenchmarks.MapVsConcestorDict.ConcestorDictFind() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 280
+   at BenchmarkDotNet.Autogenerated.Runnable_7.WorkloadActionNoUnroll(Int64 invokeCount) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 1719
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_7.Run(IHost host, String benchmarkName) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 1576
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 57
+// AfterAll
+No Workload Results were obtained from the run.
+// Benchmark Process 6252 has exited with code -1.
+
+// ** Remained 4 (33.3%) benchmark(s) to run. Estimated finish 2023-12-09 9:25 (0h 0m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.MapFind: DefaultJob [Size=1024]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1896 1316 --benchmarkName "ListBenchmarks+MapVsConcestorDict.MapFind(Size: 1024)" --job Default --benchmarkId 8 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 149000.00 ns, 149.0000 us/op
+WorkloadJitting  1: 1 op, 321865100.00 ns, 321.8651 ms/op
+
+WorkloadPilot    1: 2 op, 428350200.00 ns, 214.1751 ms/op
+WorkloadPilot    2: 3 op, 639905700.00 ns, 213.3019 ms/op
+
+WorkloadWarmup   1: 3 op, 641026100.00 ns, 213.6754 ms/op
+WorkloadWarmup   2: 3 op, 649897900.00 ns, 216.6326 ms/op
+WorkloadWarmup   3: 3 op, 665816600.00 ns, 221.9389 ms/op
+WorkloadWarmup   4: 3 op, 646824000.00 ns, 215.6080 ms/op
+WorkloadWarmup   5: 3 op, 660436000.00 ns, 220.1453 ms/op
+WorkloadWarmup   6: 3 op, 644535400.00 ns, 214.8451 ms/op
+
+// BeforeActualRun
+WorkloadActual   1: 3 op, 639308700.00 ns, 213.1029 ms/op
+WorkloadActual   2: 3 op, 642155100.00 ns, 214.0517 ms/op
+WorkloadActual   3: 3 op, 648701700.00 ns, 216.2339 ms/op
+WorkloadActual   4: 3 op, 640368000.00 ns, 213.4560 ms/op
+WorkloadActual   5: 3 op, 670639900.00 ns, 223.5466 ms/op
+WorkloadActual   6: 3 op, 645928100.00 ns, 215.3094 ms/op
+WorkloadActual   7: 3 op, 634399100.00 ns, 211.4664 ms/op
+WorkloadActual   8: 3 op, 640864400.00 ns, 213.6215 ms/op
+WorkloadActual   9: 3 op, 647724100.00 ns, 215.9080 ms/op
+WorkloadActual  10: 3 op, 645721400.00 ns, 215.2405 ms/op
+WorkloadActual  11: 3 op, 637526200.00 ns, 212.5087 ms/op
+WorkloadActual  12: 3 op, 665132800.00 ns, 221.7109 ms/op
+WorkloadActual  13: 3 op, 636469200.00 ns, 212.1564 ms/op
+WorkloadActual  14: 3 op, 628617700.00 ns, 209.5392 ms/op
+WorkloadActual  15: 3 op, 618274000.00 ns, 206.0913 ms/op
+
+// AfterActualRun
+WorkloadResult   1: 3 op, 639308700.00 ns, 213.1029 ms/op
+WorkloadResult   2: 3 op, 642155100.00 ns, 214.0517 ms/op
+WorkloadResult   3: 3 op, 648701700.00 ns, 216.2339 ms/op
+WorkloadResult   4: 3 op, 640368000.00 ns, 213.4560 ms/op
+WorkloadResult   5: 3 op, 645928100.00 ns, 215.3094 ms/op
+WorkloadResult   6: 3 op, 634399100.00 ns, 211.4664 ms/op
+WorkloadResult   7: 3 op, 640864400.00 ns, 213.6215 ms/op
+WorkloadResult   8: 3 op, 647724100.00 ns, 215.9080 ms/op
+WorkloadResult   9: 3 op, 645721400.00 ns, 215.2405 ms/op
+WorkloadResult  10: 3 op, 637526200.00 ns, 212.5087 ms/op
+WorkloadResult  11: 3 op, 636469200.00 ns, 212.1564 ms/op
+WorkloadResult  12: 3 op, 628617700.00 ns, 209.5392 ms/op
+WorkloadResult  13: 3 op, 618274000.00 ns, 206.0913 ms/op
+
+// AfterAll
+// Benchmark Process 25820 has exited with code 0.
+
+Mean = 212.976 ms, StdErr = 0.776 ms (0.36%), N = 13, StdDev = 2.799 ms
+Min = 206.091 ms, Q1 = 212.156 ms, Median = 213.456 ms, Q3 = 215.240 ms, Max = 216.234 ms
+IQR = 3.084 ms, LowerFence = 207.530 ms, UpperFence = 219.867 ms
+ConfidenceInterval = [209.624 ms; 216.327 ms] (CI 99.9%), Margin = 3.351 ms (1.57% of Mean)
+Skewness = -1, Kurtosis = 3.31, MValue = 2
+
+// ** Remained 3 (25.0%) benchmark(s) to run. Estimated finish 2023-12-09 9:25 (0h 0m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=1024]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 872 1800 --benchmarkName "ListBenchmarks+MapVsConcestorDict.ConcestorDictFind(Size: 1024)" --job Default --benchmarkId 9 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 118700.00 ns, 118.7000 us/op
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at ListBenchmarks.MapVsConcestorDict.get_ConcestorDictOfInts() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 270
+   at ListBenchmarks.MapVsConcestorDict.ConcestorDictFind() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 280
+   at BenchmarkDotNet.Autogenerated.Runnable_9.WorkloadActionNoUnroll(Int64 invokeCount) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 2119
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_9.Run(IHost host, String benchmarkName) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 1976
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 57
+// AfterAll
+No Workload Results were obtained from the run.
+// Benchmark Process 66796 has exited with code -1.
+
+// ** Remained 2 (16.7%) benchmark(s) to run. Estimated finish 2023-12-09 9:25 (0h 0m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.MapFind: DefaultJob [Size=8192]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1884 1904 --benchmarkName "ListBenchmarks+MapVsConcestorDict.MapFind(Size: 8192)" --job Default --benchmarkId 10 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 117500.00 ns, 117.5000 us/op
+WorkloadJitting  1: 1 op, 26102283100.00 ns, 26.1023 s/op
+
+WorkloadWarmup   1: 1 op, 22013518700.00 ns, 22.0135 s/op
+WorkloadWarmup   2: 1 op, 20458018900.00 ns, 20.4580 s/op
+WorkloadWarmup   3: 1 op, 20603094500.00 ns, 20.6031 s/op
+WorkloadWarmup   4: 1 op, 20525637500.00 ns, 20.5256 s/op
+WorkloadWarmup   5: 1 op, 20538492600.00 ns, 20.5385 s/op
+WorkloadWarmup   6: 1 op, 20552383200.00 ns, 20.5524 s/op
+WorkloadWarmup   7: 1 op, 21064195200.00 ns, 21.0642 s/op
+WorkloadWarmup   8: 1 op, 20882975800.00 ns, 20.8830 s/op
+
+// BeforeActualRun
+WorkloadActual   1: 1 op, 21063028400.00 ns, 21.0630 s/op
+WorkloadActual   2: 1 op, 20576360100.00 ns, 20.5764 s/op
+WorkloadActual   3: 1 op, 20890576800.00 ns, 20.8906 s/op
+WorkloadActual   4: 1 op, 21132750800.00 ns, 21.1328 s/op
+WorkloadActual   5: 1 op, 20702159800.00 ns, 20.7022 s/op
+WorkloadActual   6: 1 op, 20800827600.00 ns, 20.8008 s/op
+WorkloadActual   7: 1 op, 20786372700.00 ns, 20.7864 s/op
+WorkloadActual   8: 1 op, 20733664600.00 ns, 20.7337 s/op
+WorkloadActual   9: 1 op, 20610771900.00 ns, 20.6108 s/op
+WorkloadActual  10: 1 op, 20855771200.00 ns, 20.8558 s/op
+WorkloadActual  11: 1 op, 20744864200.00 ns, 20.7449 s/op
+WorkloadActual  12: 1 op, 20728136700.00 ns, 20.7281 s/op
+WorkloadActual  13: 1 op, 20763572500.00 ns, 20.7636 s/op
+WorkloadActual  14: 1 op, 20751146500.00 ns, 20.7511 s/op
+WorkloadActual  15: 1 op, 20715809900.00 ns, 20.7158 s/op
+
+// AfterActualRun
+WorkloadResult   1: 1 op, 20576360100.00 ns, 20.5764 s/op
+WorkloadResult   2: 1 op, 20890576800.00 ns, 20.8906 s/op
+WorkloadResult   3: 1 op, 20702159800.00 ns, 20.7022 s/op
+WorkloadResult   4: 1 op, 20800827600.00 ns, 20.8008 s/op
+WorkloadResult   5: 1 op, 20786372700.00 ns, 20.7864 s/op
+WorkloadResult   6: 1 op, 20733664600.00 ns, 20.7337 s/op
+WorkloadResult   7: 1 op, 20610771900.00 ns, 20.6108 s/op
+WorkloadResult   8: 1 op, 20855771200.00 ns, 20.8558 s/op
+WorkloadResult   9: 1 op, 20744864200.00 ns, 20.7449 s/op
+WorkloadResult  10: 1 op, 20728136700.00 ns, 20.7281 s/op
+WorkloadResult  11: 1 op, 20763572500.00 ns, 20.7636 s/op
+WorkloadResult  12: 1 op, 20751146500.00 ns, 20.7511 s/op
+WorkloadResult  13: 1 op, 20715809900.00 ns, 20.7158 s/op
+
+// AfterAll
+// Benchmark Process 61296 has exited with code 0.
+
+Mean = 20.743 s, StdErr = 0.024 s (0.11%), N = 13, StdDev = 0.086 s
+Min = 20.576 s, Q1 = 20.716 s, Median = 20.745 s, Q3 = 20.786 s, Max = 20.891 s
+IQR = 0.071 s, LowerFence = 20.610 s, UpperFence = 20.892 s
+ConfidenceInterval = [20.640 s; 20.846 s] (CI 99.9%), Margin = 0.103 s (0.49% of Mean)
+Skewness = -0.26, Kurtosis = 2.47, MValue = 2
+
+// ** Remained 1 (8.3%) benchmark(s) to run. Estimated finish 2023-12-09 9:34 (0h 0m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=8192]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 2694642a-1495-49c0-bb31-9a5326d0d8a7.dll --anonymousPipes 1900 1956 --benchmarkName "ListBenchmarks+MapVsConcestorDict.ConcestorDictFind(Size: 8192)" --job Default --benchmarkId 11 in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 119300.00 ns, 119.3000 us/op
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at ListBenchmarks.MapVsConcestorDict.get_ConcestorDictOfInts() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 270
+   at ListBenchmarks.MapVsConcestorDict.ConcestorDictFind() in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\Program.fs:line 280
+   at BenchmarkDotNet.Autogenerated.Runnable_11.WorkloadActionNoUnroll(Int64 invokeCount) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 2519
+   at BenchmarkDotNet.Engines.Engine.RunIteration(IterationData data)
+   at BenchmarkDotNet.Engines.EngineFactory.Jit(Engine engine, Int32 jitIndex, Int32 invokeCount, Int32 unrollFactor)
+   at BenchmarkDotNet.Engines.EngineFactory.CreateReadyToRun(EngineParameters engineParameters)
+   at BenchmarkDotNet.Autogenerated.Runnable_11.Run(IHost host, String benchmarkName) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 2376
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at BenchmarkDotNet.Autogenerated.UniqueProgramName.AfterAssemblyLoadingAttached(String[] args) in C:\dev\jindra\talk-fsharp-data-structures\Benchmarks_ImmutableList\Benchmarks\bin\release\net8.0\2694642a-1495-49c0-bb31-9a5326d0d8a7\2694642a-1495-49c0-bb31-9a5326d0d8a7.notcs:line 57
+// AfterAll
+No Workload Results were obtained from the run.
+// Benchmark Process 2900 has exited with code -1.
+
+// ** Remained 0 (0.0%) benchmark(s) to run. Estimated finish 2023-12-09 9:33 (0h 0m from now) **
+Successfully reverted power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+  BenchmarkDotNet.Artifacts\results\ListBenchmarks.MapVsConcestorDict-report.csv
+  BenchmarkDotNet.Artifacts\results\ListBenchmarks.MapVsConcestorDict-report-github.md
+  BenchmarkDotNet.Artifacts\results\ListBenchmarks.MapVsConcestorDict-report.html
+
+// * Detailed results *
+MapVsConcestorDict.MapFind: DefaultJob [Size=64]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+Mean = 427.970 μs, StdErr = 1.788 μs (0.42%), N = 15, StdDev = 6.927 μs
+Min = 415.537 μs, Q1 = 423.656 μs, Median = 428.945 μs, Q3 = 433.584 μs, Max = 436.309 μs
+IQR = 9.929 μs, LowerFence = 408.763 μs, UpperFence = 448.477 μs
+ConfidenceInterval = [420.565 μs; 435.375 μs] (CI 99.9%), Margin = 7.405 μs (1.73% of Mean)
+Skewness = -0.33, Kurtosis = 1.67, MValue = 2
+-------------------- Histogram --------------------
+[413.334 μs ; 436.953 μs) | @@@@@@@@@@@@@@@
+---------------------------------------------------
+
+MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=64]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+There are not any results runs
+
+MapVsConcestorDict.MapFind: DefaultJob [Size=128]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+Mean = 1.973 ms, StdErr = 0.005 ms (0.26%), N = 14, StdDev = 0.019 ms
+Min = 1.923 ms, Q1 = 1.971 ms, Median = 1.976 ms, Q3 = 1.983 ms, Max = 1.999 ms
+IQR = 0.011 ms, LowerFence = 1.954 ms, UpperFence = 2.000 ms
+ConfidenceInterval = [1.952 ms; 1.995 ms] (CI 99.9%), Margin = 0.022 ms (1.11% of Mean)
+Skewness = -1.21, Kurtosis = 3.89, MValue = 2
+-------------------- Histogram --------------------
+[1.913 ms ; 1.953 ms) | @@
+[1.953 ms ; 2.009 ms) | @@@@@@@@@@@@
+---------------------------------------------------
+
+MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=128]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+There are not any results runs
+
+MapVsConcestorDict.MapFind: DefaultJob [Size=256]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+Mean = 9.515 ms, StdErr = 0.035 ms (0.36%), N = 14, StdDev = 0.129 ms
+Min = 9.220 ms, Q1 = 9.476 ms, Median = 9.560 ms, Q3 = 9.598 ms, Max = 9.670 ms
+IQR = 0.121 ms, LowerFence = 9.294 ms, UpperFence = 9.780 ms
+ConfidenceInterval = [9.369 ms; 9.661 ms] (CI 99.9%), Margin = 0.146 ms (1.53% of Mean)
+Skewness = -0.84, Kurtosis = 2.66, MValue = 2
+-------------------- Histogram --------------------
+[9.150 ms ; 9.447 ms) | @@@
+[9.447 ms ; 9.741 ms) | @@@@@@@@@@@
+---------------------------------------------------
+
+MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=256]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+There are not any results runs
+
+MapVsConcestorDict.MapFind: DefaultJob [Size=512]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+Mean = 44.870 ms, StdErr = 0.210 ms (0.47%), N = 25, StdDev = 1.051 ms
+Min = 43.651 ms, Q1 = 44.102 ms, Median = 44.460 ms, Q3 = 45.397 ms, Max = 47.490 ms
+IQR = 1.295 ms, LowerFence = 42.160 ms, UpperFence = 47.339 ms
+ConfidenceInterval = [44.082 ms; 45.657 ms] (CI 99.9%), Margin = 0.787 ms (1.75% of Mean)
+Skewness = 0.82, Kurtosis = 2.57, MValue = 2
+-------------------- Histogram --------------------
+[43.585 ms ; 44.529 ms) | @@@@@@@@@@@@@@
+[44.529 ms ; 45.818 ms) | @@@@@@
+[45.818 ms ; 47.962 ms) | @@@@@
+---------------------------------------------------
+
+MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=512]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+There are not any results runs
+
+MapVsConcestorDict.MapFind: DefaultJob [Size=1024]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+Mean = 212.976 ms, StdErr = 0.776 ms (0.36%), N = 13, StdDev = 2.799 ms
+Min = 206.091 ms, Q1 = 212.156 ms, Median = 213.456 ms, Q3 = 215.240 ms, Max = 216.234 ms
+IQR = 3.084 ms, LowerFence = 207.530 ms, UpperFence = 219.867 ms
+ConfidenceInterval = [209.624 ms; 216.327 ms] (CI 99.9%), Margin = 3.351 ms (1.57% of Mean)
+Skewness = -1, Kurtosis = 3.31, MValue = 2
+-------------------- Histogram --------------------
+[204.529 ms ; 210.631 ms) | @@
+[210.631 ms ; 217.796 ms) | @@@@@@@@@@@
+---------------------------------------------------
+
+MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=1024]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+There are not any results runs
+
+MapVsConcestorDict.MapFind: DefaultJob [Size=8192]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+Mean = 20.743 s, StdErr = 0.024 s (0.11%), N = 13, StdDev = 0.086 s
+Min = 20.576 s, Q1 = 20.716 s, Median = 20.745 s, Q3 = 20.786 s, Max = 20.891 s
+IQR = 0.071 s, LowerFence = 20.610 s, UpperFence = 20.892 s
+ConfidenceInterval = [20.640 s; 20.846 s] (CI 99.9%), Margin = 0.103 s (0.49% of Mean)
+Skewness = -0.26, Kurtosis = 2.47, MValue = 2
+-------------------- Histogram --------------------
+[20.529 s ; 20.938 s) | @@@@@@@@@@@@@
+---------------------------------------------------
+
+MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=8192]
+Runtime = .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2; GC = Concurrent Workstation
+There are not any results runs
+
+// * Summary *
+
+BenchmarkDotNet=v0.13.4, OS=Windows 11 (10.0.22621.2715)
+AMD Ryzen 7 5700X, 1 CPU, 16 logical and 8 physical cores
+.NET SDK=8.0.100
+  [Host]     : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2 DEBUG
+  DefaultJob : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+
+
+|            Method | Size |            Mean |         Error |       StdDev |
+|------------------ |----- |----------------:|--------------:|-------------:|
+|           MapFind |   64 |        428.0 μs |       7.40 μs |      6.93 μs |
+| ConcestorDictFind |   64 |              NA |            NA |           NA |
+|           MapFind |  128 |      1,973.5 μs |      21.95 μs |     19.46 μs |
+| ConcestorDictFind |  128 |              NA |            NA |           NA |
+|           MapFind |  256 |      9,515.4 μs |     145.95 μs |    129.38 μs |
+| ConcestorDictFind |  256 |              NA |            NA |           NA |
+|           MapFind |  512 |     44,869.7 μs |     787.41 μs |  1,051.18 μs |
+| ConcestorDictFind |  512 |              NA |            NA |           NA |
+|           MapFind | 1024 |    212,975.8 μs |   3,351.37 μs |  2,798.55 μs |
+| ConcestorDictFind | 1024 |              NA |            NA |           NA |
+|           MapFind | 8192 | 20,743,079.6 μs | 102,657.69 μs | 85,723.82 μs |
+| ConcestorDictFind | 8192 |              NA |            NA |           NA |
+
+Benchmarks with issues:
+  MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=64]
+  MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=128]
+  MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=256]
+  MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=512]
+  MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=1024]
+  MapVsConcestorDict.ConcestorDictFind: DefaultJob [Size=8192]
+
+// * Warnings *
+Environment
+  Summary -> Detected error exit code from one of the benchmarks. It might be caused by following antivirus software:
+        - Windows Defender (windowsdefender://)
+Use InProcessEmitToolchain or InProcessNoEmitToolchain to avoid new process creation.
+
+
+// * Hints *
+Outliers
+  MapVsConcestorDict.MapFind: Default -> 1 outlier  was  removed, 3 outliers were detected (1.92 ms, 1.94 ms, 2.03 ms)
+  MapVsConcestorDict.MapFind: Default -> 1 outlier  was  removed, 2 outliers were detected (9.22 ms, 10.09 ms)
+  MapVsConcestorDict.MapFind: Default -> 1 outlier  was  removed (48.00 ms)
+  MapVsConcestorDict.MapFind: Default -> 2 outliers were removed, 3 outliers were detected (206.09 ms, 221.71 ms, 223.55 ms)
+  MapVsConcestorDict.MapFind: Default -> 2 outliers were removed (21.06 s, 21.13 s)
+
+// * Legends *
+  Size   : Value of the 'Size' parameter
+  Mean   : Arithmetic mean of all measurements
+  Error  : Half of 99.9% confidence interval
+  StdDev : Standard deviation of all measurements
+  1 μs   : 1 Microsecond (0.000001 sec)
+
+// ***** BenchmarkRunner: End *****
+Run time: 00:09:53 (593.53 sec), executed benchmarks: 12
+
+Global total time: 00:10:10 (610.98 sec), executed benchmarks: 12
+// * Artifacts cleanup *

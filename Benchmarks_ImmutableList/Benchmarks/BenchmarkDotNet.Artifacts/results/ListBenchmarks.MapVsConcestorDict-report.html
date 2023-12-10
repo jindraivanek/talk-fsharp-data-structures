@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>ListBenchmarks.MapVsConcestorDict-20231209-100113</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.13.4, OS=Windows 11 (10.0.22621.2715)
+AMD Ryzen 7 5700X, 1 CPU, 16 logical and 8 physical cores
+.NET SDK=8.0.100
+  [Host]     : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2 DEBUG
+  DefaultJob : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>     Method</th><th>Size</th><th>     Mean</th><th>  Error</th><th> StdDev</th>
+</tr>
+</thead><tbody><tr><td>MapFind</td><td>64</td><td>430.6 &mu;s</td><td>6.24 &mu;s</td><td>5.54 &mu;s</td>
+</tr><tr><td>ConcestorDictFind</td><td>64</td><td>NA</td><td>NA</td><td>NA</td>
+</tr><tr><td>MapFind</td><td>128</td><td>2,037.8 &mu;s</td><td>30.77 &mu;s</td><td>28.78 &mu;s</td>
+</tr><tr><td>ConcestorDictFind</td><td>128</td><td>NA</td><td>NA</td><td>NA</td>
+</tr><tr><td>MapFind</td><td>256</td><td>9,664.7 &mu;s</td><td>108.68 &mu;s</td><td>96.34 &mu;s</td>
+</tr><tr><td>ConcestorDictFind</td><td>256</td><td>NA</td><td>NA</td><td>NA</td>
+</tr><tr><td>MapFind</td><td>512</td><td>45,931.0 &mu;s</td><td>892.71 &mu;s</td><td>1,028.04 &mu;s</td>
+</tr><tr><td>ConcestorDictFind</td><td>512</td><td>NA</td><td>NA</td><td>NA</td>
+</tr><tr><td>MapFind</td><td>1024</td><td>215,681.9 &mu;s</td><td>4,222.81 &mu;s</td><td>4,147.36 &mu;s</td>
+</tr><tr><td>ConcestorDictFind</td><td>1024</td><td>NA</td><td>NA</td><td>NA</td>
+</tr><tr><td>MapFind</td><td>8192</td><td>21,629,045.3 &mu;s</td><td>280,074.08 &mu;s</td><td>248,278.37 &mu;s</td>
+</tr><tr><td>ConcestorDictFind</td><td>8192</td><td>NA</td><td>NA</td><td>NA</td>
+</tr></tbody></table>
+</body>
+</html>

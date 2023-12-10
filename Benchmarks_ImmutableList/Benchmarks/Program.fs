@@ -266,18 +266,18 @@ type MapVsConcestorDict() =
     [<Params(64, 128, 256, 512, 1024, 8192)>]
     member val Size = 0 with get, set
 
-    member x.MapOfInts = listOfInts x.Size |> List.map (fun x -> x.ToString(), x) |> Map.ofList
-    member x.ConcestorDictOfInts = listOfInts x.Size |> List.map (fun i -> i.ToString(), i) |> Seq.fold (fun d (k, v) -> mapC.add k v d) mapC.empty
+    member x.MapOfInts = lazy (listOfInts x.Size |> List.map (fun x -> x.ToString(), x) |> Map.ofList)
+    member x.ConcestorDictOfInts = lazy (listOfInts x.Size |> List.map (fun i -> i.ToString(), i) |> Seq.fold (fun d (k, v) -> mapC.add k v d) mapC.empty)
 
     [<Benchmark>]
     member x.MapFind() =
-        for i in 0..x.Size-1 do
-            x.MapOfInts.[i.ToString()] |> ignore
+        for k in Map.keys x.MapOfInts.Value do
+            x.MapOfInts.Value.[k] |> ignore
 
     [<Benchmark>]
-    member x.ConcestorDictContains() =
-        for i in 0..x.Size-1 do
-            (mapC.get x.ConcestorDictOfInts)[i.ToString()]  |> ignore
+    member x.ConcestorDictFind() =
+        for k in Map.keys x.MapOfInts.Value do
+            (mapC.get x.ConcestorDictOfInts.Value).[k] |> ignore
 
     // [<Benchmark>]
     // member x.MapAdd() =

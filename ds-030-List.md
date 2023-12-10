@@ -7,6 +7,8 @@ let listA = [1; 2; 3]
 let listA = 1 :: 2 :: 3 :: []
 ```
 
+![Alt text](list1.png)
+
 ```fsharp
 type List<'T> = 
 | ([]) : 'T list
@@ -23,21 +25,9 @@ let listA = 1 :: 2 :: 3 :: []
 let listA2 = listA
 let listB = 4 :: listA
 let listB2 = [4] @ listA
-
-listA = listA2
-listB = listB2
 ```
 
-```mermaid
-graph LR;
-    listA(listA) --> 1 --> 2 --> 3 --> nil("[]")
-    listA2(listA2) --> 1
-    listB(listB) --> 4 --> listA
-    listB2(listB2) --> 4
-```
-TODO: remove mermaid
-
-![Linked list sharing](linked_list_sharing.png)
+![width:1000px](linked_list_sharing.png)
 
 ---
 

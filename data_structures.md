@@ -5,6 +5,7 @@ marp: true
 paginate: true
 theme: gaia
 header: ''
+auto-scaling: true
 ---
 <style>
 div.colwrap {
@@ -48,7 +49,7 @@ div.it {
 - F# List
 - F# Map
 - F# Set
-- List vs Set
+- Structural comparison
 - Comparison with C# collections
 - IEnumerable, seq - lazy sequences
 - note about purity
@@ -93,6 +94,8 @@ let listA = [1; 2; 3]
 let listA = 1 :: 2 :: 3 :: []
 ```
 
+![Alt text](list1.png)
+
 ```fsharp
 type List<'T> = 
 | ([]) : 'T list
@@ -109,21 +112,9 @@ let listA = 1 :: 2 :: 3 :: []
 let listA2 = listA
 let listB = 4 :: listA
 let listB2 = [4] @ listA
-
-listA = listA2
-listB = listB2
 ```
 
-```mermaid
-graph LR;
-    listA(listA) --> 1 --> 2 --> 3 --> nil("[]")
-    listA2(listA2) --> 1
-    listB(listB) --> 4 --> listA
-    listB2(listB2) --> 4
-```
-TODO: remove mermaid
-
-![Linked list sharing](linked_list_sharing.png)
+![width:1000px](linked_list_sharing.png)
 
 ---
 
@@ -174,13 +165,113 @@ TODO: remove mermaid
 ---
 <!-- header: '**F# Data Structures**' -->
 
-# Structural sharing
+# F# Set
+Unordered set of values
+
+Internally implemented as a (balanced) tree
+
+```fsharp
+let s = [11; 20; 29; 32; 41; 50; 65; 72; 91; 99] |> set
+```
+
+![Example tree](set1.png)
 
 ---
 
-# F# Map
+```fsharp
+    (* A classic functional language implementation of binary trees *)
 
-Dictionary like immutable data structure
+    [<CompilationRepresentation(CompilationRepresentationFlags.UseNullAsTrueValue)>]
+    [<NoEquality; NoComparison>]
+    type SetTree<'T> when 'T: comparison = 
+        | SetEmpty                                          // height = 0   
+        | SetNode of 'T * SetTree<'T> *  SetTree<'T> * int    // height = int 
+        | SetOne  of 'T                                     // height = 1   
+```
+
+---
+
+Insert = search + add
+
+```fsharp
+let s2 = s |> Set.add 35
+```
+
+![tree insert](tree-insert.gif)
+
+from https://visualgo.net/en/bst
+
+---
+
+```fsharp
+let s = [1; 7; 3; 9; 5; 6; 2; 8; 4] |> set
+```
+
+![bg contain](tree-inserts.gif)
+
+---
+
+- values must be comparable
+- searching for item (`Set.exists`, `Set.contains`) by binary search
+- insert, remove - unchanged part of tree is shared
+![after insert](map_after_insert.png)
+- functions with predicate on value (`Set.map`, `Set.filter`, `Set.partition`), goes through whole tree! (in order)
+- keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
+
+---
+
+## When to use Set instead of List?
+
+- generally its faster to search for item with `Set`
+- but for small sizes `List.constains` is faster
+
+---
+
+## When to use Set instead of List?
+
+<style scoped>
+table {
+  font-size: 22px;
+}
+</style>
+
+|       Method | Size |          Mean |       Error |      StdDev |
+|------------- |----- |--------------:|------------:|------------:|
+| **ListContains** |   **64** |      **2.159 μs** |   **0.0431 μs** |   **0.0998 μs** |
+|  SetContains |   64 |      4.561 μs |   0.0833 μs |   0.0780 μs |
+| **ListContains** |  **128** |      **8.241 μs** |   **0.0473 μs** |   **0.0443 μs** |
+|  SetContains |  128 |     10.347 μs |   0.1933 μs |   0.1985 μs |
+| **ListContains** |  **256** |     **31.169 μs** |   **0.1609 μs** |   **0.1426 μs** |
+|  SetContains |  256 |     23.488 μs |   0.3803 μs |   0.3557 μs |
+| **ListContains** |  **512** |    **119.456 μs** |   **0.5491 μs** |   **0.5136 μs** |
+|  SetContains |  512 |     52.889 μs |   0.8146 μs |   0.6802 μs |
+| **ListContains** | **1024** |    **467.593 μs** |   **1.9139 μs** |   **1.7902 μs** |
+|  SetContains | 1024 |    149.908 μs |   1.2287 μs |   1.1494 μs |
+| **ListContains** | **8192** | **29,487.104 μs** | **114.3813 μs** | **101.3960 μs** |
+|  SetContains | 8192 |  1,548.127 μs |  19.6668 μs |  18.3963 μs |
+
+---
+
+## Another important functions
+- `Set.union`
+- `Set.intersect`
+- `Set.difference`
+
+all of them works recursively on tree structure -> faster than the same on `list`
+
+- `Set.isSubset`
+- `Set.isSuperset`
+
+try find all elements of first set in second
+
+---
+<!-- header: '**F# Data Structures**' -->
+
+# F# Map
+- Dictionary like immutable data structure
+- Like `Set`, but with value linked with each key (node)
+
+---
 
 ```fsharp
 let mapA = Map.ofList [1, "A"; 2, "B"; 3, "C"]
@@ -188,16 +279,6 @@ let mapB = Map.ofList [1, "A"; 2, "B"; 3, "C"; 4, "D"]
 let mapB2 = Map.add 4 "D" mapA
 mapB = mapB2 // true
 ```
-
----
-
-Internally implemented as a (balanced) tree
-
-```fsharp
-let m = [11; 20; 29; 32; 41; 50; 65; 72; 91; 99] |> List.map (fun x -> x, string x) |> Map.ofList
-```
-
-![Example tree](map1.png)
 
 ---
 
@@ -228,25 +309,12 @@ type internal MapTreeNode<'Key, 'Value>
 
 ---
 
-Insert = search + add
-
-```fsharp
-let m2 = m |> Map.add 35
-```
-
-![tree insert](tree-insert.gif)
-
-from https://visualgo.net/en/bst
-
----
-
 - keys must be comparable
 - searching for item (`Map.find`, `Map.containsKey`) by binary search
 - insert, remove - unchanged part of tree is shared
 ![after insert](map_after_insert.png)
 - functions with predicate on key (`Map.pick`, `Map.findKey`), goes through whole tree! (in keys order)
-example
-- keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
+- keys cannot be duplicite - insert (`Map.add`) replace value if key already exists
 
 ---
 
@@ -259,48 +327,61 @@ Creation of `Map` - List.groupBy
 ---
 <!-- header: '**F# Data Structures**' -->
 
-# F# Set
+# F# data types
+- unit
+- primitive types - `int`, `float`, `string`, `bool`, ...
+- records
+- tuples
+- discriminated unions
 
-Like `Map`, but without values
+## composed types
 
----
+- `list`
+- `Set`
+- `Map`
 
-## When to use Set instead of List?
-
-- generally its faster to search for item with `Set`
-- but for small sizes `List.constains` is faster
-
----
-
-## When to use Set instead of List?
-
-<span style="font-size: 0.5em;">
-
-|       Method | Size |          Mean |       Error |      StdDev |
-|------------- |----- |--------------:|------------:|------------:|
-| **ListContains** |   **64** |      **2.159 μs** |   **0.0431 μs** |   **0.0998 μs** |
-|  SetContains |   64 |      4.561 μs |   0.0833 μs |   0.0780 μs |
-| **ListContains** |  **128** |      **8.241 μs** |   **0.0473 μs** |   **0.0443 μs** |
-|  SetContains |  128 |     10.347 μs |   0.1933 μs |   0.1985 μs |
-| **ListContains** |  **256** |     **31.169 μs** |   **0.1609 μs** |   **0.1426 μs** |
-|  SetContains |  256 |     23.488 μs |   0.3803 μs |   0.3557 μs |
-| **ListContains** |  **512** |    **119.456 μs** |   **0.5491 μs** |   **0.5136 μs** |
-|  SetContains |  512 |     52.889 μs |   0.8146 μs |   0.6802 μs |
-| **ListContains** | **1024** |    **467.593 μs** |   **1.9139 μs** |   **1.7902 μs** |
-|  SetContains | 1024 |    149.908 μs |   1.2287 μs |   1.1494 μs |
-| **ListContains** | **8192** | **29,487.104 μs** | **114.3813 μs** | **101.3960 μs** |
-|  SetContains | 8192 |  1,548.127 μs |  19.6668 μs |  18.3963 μs |
-
-</span>
+all F# data types have defined structural equality and ordering - can be used in `Set` and `Map`
 
 ---
 
-## Another important functions
-- `Set.union`
-- `Set.intersect`
-- `Set.difference`
+# Ordering
+Ordering by field/case position, then recurse or prim. type ordering
 
-all of them (ab)using tree structure -> faster than the same on `list`
+```fsharp
+type R = {A: int; B: string}
+{A = 1; B = "b"} < {A = 2; B = "a"}
+{A = 1; B = "a"} = {A = 1; B = "a"}
+{A = 1; B = "a"} < {A = 1; B = "b"}
+
+type R2 = {B: string; A: int}
+{B = "b"; A = 1} > {B = "a"; A = 2}
+{B = "a"; A = 2} > {B = "a"; A = 1}
+
+("a", 1) < ("a", 2)
+
+//DU - by order of cases
+
+Some 1 < Some 2
+None < Some System.Int32.MaxValue
+```
+
+---
+
+(Ab)use of ordering example
+
+```fsharp
+type PokerHand =
+    | HighCard of int
+    | Pair of int
+    | TwoPair of int * int
+    | ThreeOfAKind of int
+    | Straight of int
+    | Flush of int
+    | FullHouse of int * int
+    | FourOfAKind of int
+    | StraightFlush of int
+    | RoyalFlush
+```
 
 ---
 <!-- header: '**F# Data Structures**' -->
@@ -311,7 +392,11 @@ all of them (ab)using tree structure -> faster than the same on `list`
 
 ## Naming
 
-<small>
+<style scoped>
+table {
+  font-size: 30px;
+}
+</style>
 
 Collection | F# | C#
 --- | --- | ---
@@ -323,8 +408,6 @@ Set (immutable set) | `Set<'T>` | `ImmutableHashSet<T>`
 Dictionary (mutable) | - | `Dictionary<K, V>`
 HashSet (mutable) | - | `HashSet<T>`
 Enumerable | `seq<'T>` | `IEnumerable<T>`
-
-</small>
 
 ---
 
@@ -338,10 +421,6 @@ Enumerable | `seq<'T>` | `IEnumerable<T>`
 <!-- header: '**F# Data Structures**' -->
 
 # Enumerable, seq - lazy sequences
-
----
-
-## `seq<'t>`
 
 - Every collection implements `seq<'T>` (alias for `IEnumerable<T>`) interface.
 
@@ -399,22 +478,18 @@ Seq.initInfinite (fun _ -> r.Next())
 ---
 <!-- header: '**F# Data Structures**' -->
 
-# Pure functions
+# Referential transparency
+- replace the function call with its result doesn't change meaning of the program
+  - always returns the same result for the same input ("math-y" function)
 
----
-
-- **Pure** function:
-    - always returns the same result for the same input (**referential transparency**)
-    - no side effects
-
-- Immutable data structures allows us to write **pure** functions.
+- Immutable data structures allows us to write **Referential transparent** functions.
 
 - no mutable variables / data structures, no side effects => **referential transparency**
 
 ---
 
 - BUT:
-- **referential transparency** can be achieved even with mutable data structures
+- **referential transparency** can be achieved even with mutable data structures or side-effects
 - mutable variables and data structures are perfectly fine when not leaking outside of function
 
 ---
@@ -445,6 +520,19 @@ let memoizeBy projection f =
 ```
 
 ---
+
+# Pure functions
+
+- **Pure** function:
+    - always returns the same result for the same input (**referential transparency**)
+    - no side effects
+
+- no mutable variables / data structures, no side effects <=> **pure function**
+- every **referential transparent** function is **pure**
+- **pure function** is more strict, but can be checked by compiler - one of idea behind Haskell
+
+---
+
 <!-- header: '**F# Data Structures**' -->
 
 # C# Immutable collections
@@ -461,7 +549,11 @@ let memoizeBy projection f =
 https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections
 
 ---
-<span style="font-size: 0.5em;">
+<style scoped>
+table {
+  font-size: 20px;
+}
+</style>
 
 |                                     Method |       Mean |     Error |    StdDev |    Gen0 |   Gen1 | Allocated |
 |--- |-----------:|----------:|----------:|--------:|-------:|----------:|
@@ -481,9 +573,8 @@ https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework
 |                      **'int - List.contains'** |   5.087 us | 0.0649 us | 0.0607 us |       - |      - |      40 B |
 |             'int - ImmutableList.contains' |  12.743 us | 0.1634 us | 0.1448 us |       - |      - |      72 B |
 
-</span>
-
----<!-- header: '**F# Data Structures**' -->
+---
+<!-- header: '**F# Data Structures**' -->
 
 # QUESTIONS?
 

@@ -6,7 +6,11 @@
 
 ## Naming
 
-<small>
+<style scoped>
+table {
+  font-size: 30px;
+}
+</style>
 
 Collection | F# | C#
 --- | --- | ---
@@ -19,7 +23,6 @@ Dictionary (mutable) | - | `Dictionary<K, V>`
 HashSet (mutable) | - | `HashSet<T>`
 Enumerable | `seq<'T>` | `IEnumerable<T>`
 
-</small>
 ---
 
 # Other useful C# collections

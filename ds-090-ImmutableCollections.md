@@ -14,7 +14,11 @@
 https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections
 
 ---
-<span style="font-size: 0.5em;">
+<style scoped>
+table {
+  font-size: 20px;
+}
+</style>
 
 |                                     Method |       Mean |     Error |    StdDev |    Gen0 |   Gen1 | Allocated |
 |------------------------------------------- |-----------:|----------:|----------:|--------:|-------:|----------:|
@@ -33,7 +37,5 @@ https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework
 |               'int - ImmutableList.reduce' |   4.495 us | 0.0656 us | 0.0806 us |  0.0076 |      - |     112 B |
 |                      **'int - List.contains'** |   5.087 us | 0.0649 us | 0.0607 us |       - |      - |      40 B |
 |             'int - ImmutableList.contains' |  12.743 us | 0.1634 us | 0.1448 us |       - |      - |      72 B |
-
-</span>
 
 ---

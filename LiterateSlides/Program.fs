@@ -99,6 +99,7 @@ marp: true
 paginate: true
 theme: gaia
 header: ''
+auto-scaling: true
 ---
 <style>
 div.colwrap {

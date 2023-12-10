@@ -2,10 +2,6 @@
 
 # Enumerable, seq - lazy sequences
 
----
-
-## `seq<'t>`
-
 - Every collection implements `seq<'T>` (alias for `IEnumerable<T>`) interface.
 
 - Interface for reading elements one by one.
