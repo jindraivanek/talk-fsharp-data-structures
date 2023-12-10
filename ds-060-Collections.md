@@ -27,8 +27,8 @@ Enumerable | `seq<'T>` | `IEnumerable<T>`
 
 # Other useful C# collections
 
-- `Queue<T>`
-- `PriorityQueue<T>`
-- `ConcurrentDictionary<K, V>`
+* `Queue<T>`
+* `PriorityQueue<T>`
+* `ConcurrentDictionary<K, V>`
 
 ---

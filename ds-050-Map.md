@@ -1,8 +1,8 @@
 <!-- header: '**F# Data Structures**' -->
 
 # F# Map
-- Dictionary like immutable data structure
-- Like `Set`, but with value linked with each key (node)
+* Dictionary like immutable data structure
+* Like `Set`, but with value linked with each key (node)
 
 ---
 
@@ -42,12 +42,12 @@ type internal MapTreeNode<'Key, 'Value>
 
 ---
 
-- keys must be comparable
-- searching for item (`Map.find`, `Map.containsKey`) by binary search
-- insert, remove - unchanged part of tree is shared
+* keys must be comparable
+* searching for item (`Map.find`, `Map.containsKey`) by binary search
+* insert, remove - unchanged part of tree is shared
 ![after insert](map_after_insert.png)
-- functions with predicate on key (`Map.pick`, `Map.findKey`), goes through whole tree! (in keys order)
-- keys cannot be duplicite - insert (`Map.add`) replace value if key already exists
+* functions with predicate on key (`Map.pick`, `Map.findKey`), goes through whole tree! (in keys order)
+* keys cannot be duplicite - insert (`Map.add`) replace value if key already exists
 
 ---
 

@@ -2,11 +2,11 @@
 
 # Enumerable, seq - lazy sequences
 
-- Every collection implements `seq<'T>` (alias for `IEnumerable<T>`) interface.
+* Every collection implements `seq<'T>` (alias for `IEnumerable<T>`) interface.
 
-- Interface for reading elements one by one.
+* Interface for reading elements one by one.
 
-- Lazy abstraction - elements are computed on demand.
+* Lazy abstraction - elements are computed on demand.
 
 ---
 

@@ -45,36 +45,34 @@ div.it {
 ---
 
 # In this talk
-- Immutable Data Structures - why, how, Structural sharing
-- F# List
-- F# Map
-- F# Set
-- Structural comparison
-- Comparison with C# collections
-- IEnumerable, seq - lazy sequences
-- note about purity
-- ImmutableCollections
+* Immutable Data Structures - why, how, Structural sharing
+* F# List
+* F# Map
+* F# Set
+* Structural comparison
+* Comparison with C# collections
+* IEnumerable, seq - lazy sequences
+* note about purity
+* ImmutableCollections
 
 ---
 <!-- header: '**F# Data Structures**' -->
 
 # Immutable Data Structures
-- no part of object can be changed after it's created
+* no part of object can be changed after it's created
 
----
-
-# Why?
-- mutation is common source of bugs
-- immutable data structures are easier to reason about
+## Why?
+* mutation is common source of bugs
+* immutable data structures are easier to reason about
   - value passed to a function, can't be changed
-- immutable data structures are thread-safe
-- bonus: memory efficient time travelling
+* immutable data structures are thread-safe
+* bonus: memory efficient time travelling
 
 ---
 
 # How?
-- MYTH: to create new immutable value, you need to copy the whole thing
-- we can share parts of the structure between old and new value
+* MYTH: to create new immutable value, you need to copy the whole thing
+* we can share parts of the structure between old and new value
 
 TODO: meme
 
@@ -120,10 +118,10 @@ let listB2 = [4] @ listA
 
 ## F# (Linked) list
 
-- fast iteration, mapping, filtering, append to start
-- slow indexing, append on end
-- `x :: xs` super fast
-- `xs @ ys` slow
+* fast iteration, mapping, filtering, append to start
+* slow indexing, append on end
+* `x :: xs` super fast
+* `xs @ ys` slow
 
 ---
 
@@ -150,7 +148,7 @@ let listB2 = [4] @ listA
 |    ListAddToEnd | 5,178.36 us | 102.125 us | 139.790 us |
 | ListAddToEndAcc |    15.99 us |   0.308 us |   0.303 us |
 
-- List.rev is fast!
+* List.rev is fast!
 
 ---
 
@@ -158,9 +156,9 @@ let listB2 = [4] @ listA
 
 ![Searching in list](list_search.gif)
 
-- `List.find`, `List.nth` goes through list one by one
-- `Set` is better for searching in big lists
-- if you really need indexing, use array
+* `List.find`, `List.nth` goes through list one by one
+* `Set` is better for searching in big lists
+* if you really need indexing, use array
 
 ---
 <!-- header: '**F# Data Structures**' -->
@@ -211,19 +209,19 @@ let s = [1; 7; 3; 9; 5; 6; 2; 8; 4] |> set
 
 ---
 
-- values must be comparable
-- searching for item (`Set.exists`, `Set.contains`) by binary search
-- insert, remove - unchanged part of tree is shared
+* values must be comparable
+* searching for item (`Set.exists`, `Set.contains`) by binary search
+* insert, remove - unchanged part of tree is shared
 ![after insert](map_after_insert.png)
-- functions with predicate on value (`Set.map`, `Set.filter`, `Set.partition`), goes through whole tree! (in order)
-- keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
+* functions with predicate on value (`Set.map`, `Set.filter`, `Set.partition`), goes through whole tree! (in order)
+* keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
 
 ---
 
 ## When to use Set instead of List?
 
-- generally its faster to search for item with `Set`
-- but for small sizes `List.constains` is faster
+* generally its faster to search for item with `Set`
+* but for small sizes `List.constains` is faster
 
 ---
 
@@ -253,14 +251,14 @@ table {
 ---
 
 ## Another important functions
-- `Set.union`
-- `Set.intersect`
-- `Set.difference`
+* `Set.union`
+* `Set.intersect`
+* `Set.difference`
 
 all of them works recursively on tree structure -> faster than the same on `list`
 
-- `Set.isSubset`
-- `Set.isSuperset`
+* `Set.isSubset`
+* `Set.isSuperset`
 
 try find all elements of first set in second
 
@@ -268,8 +266,8 @@ try find all elements of first set in second
 <!-- header: '**F# Data Structures**' -->
 
 # F# Map
-- Dictionary like immutable data structure
-- Like `Set`, but with value linked with each key (node)
+* Dictionary like immutable data structure
+* Like `Set`, but with value linked with each key (node)
 
 ---
 
@@ -309,12 +307,12 @@ type internal MapTreeNode<'Key, 'Value>
 
 ---
 
-- keys must be comparable
-- searching for item (`Map.find`, `Map.containsKey`) by binary search
-- insert, remove - unchanged part of tree is shared
+* keys must be comparable
+* searching for item (`Map.find`, `Map.containsKey`) by binary search
+* insert, remove - unchanged part of tree is shared
 ![after insert](map_after_insert.png)
-- functions with predicate on key (`Map.pick`, `Map.findKey`), goes through whole tree! (in keys order)
-- keys cannot be duplicite - insert (`Map.add`) replace value if key already exists
+* functions with predicate on key (`Map.pick`, `Map.findKey`), goes through whole tree! (in keys order)
+* keys cannot be duplicite - insert (`Map.add`) replace value if key already exists
 
 ---
 
@@ -328,17 +326,17 @@ Creation of `Map` - List.groupBy
 <!-- header: '**F# Data Structures**' -->
 
 # F# data types
-- unit
-- primitive types - `int`, `float`, `string`, `bool`, ...
-- records
-- tuples
-- discriminated unions
+* unit
+* primitive types - `int`, `float`, `string`, `bool`, ...
+* records
+* tuples
+* discriminated unions
 
 ## composed types
 
-- `list`
-- `Set`
-- `Map`
+* `list`
+* `Set`
+* `Map`
 
 all F# data types have defined structural equality and ordering - can be used in `Set` and `Map`
 
@@ -413,20 +411,20 @@ Enumerable | `seq<'T>` | `IEnumerable<T>`
 
 # Other useful C# collections
 
-- `Queue<T>`
-- `PriorityQueue<T>`
-- `ConcurrentDictionary<K, V>`
+* `Queue<T>`
+* `PriorityQueue<T>`
+* `ConcurrentDictionary<K, V>`
 
 ---
 <!-- header: '**F# Data Structures**' -->
 
 # Enumerable, seq - lazy sequences
 
-- Every collection implements `seq<'T>` (alias for `IEnumerable<T>`) interface.
+* Every collection implements `seq<'T>` (alias for `IEnumerable<T>`) interface.
 
-- Interface for reading elements one by one.
+* Interface for reading elements one by one.
 
-- Lazy abstraction - elements are computed on demand.
+* Lazy abstraction - elements are computed on demand.
 
 ---
 
@@ -479,18 +477,18 @@ Seq.initInfinite (fun _ -> r.Next())
 <!-- header: '**F# Data Structures**' -->
 
 # Referential transparency
-- replace the function call with its result doesn't change meaning of the program
+* replace the function call with its result doesn't change meaning of the program
   - always returns the same result for the same input ("math-y" function)
 
-- Immutable data structures allows us to write **Referential transparent** functions.
+* Immutable data structures allows us to write **Referential transparent** functions.
 
-- no mutable variables / data structures, no side effects => **referential transparency**
+* no mutable variables / data structures, no side effects => **referential transparency**
 
 ---
 
-- BUT:
-- **referential transparency** can be achieved even with mutable data structures or side-effects
-- mutable variables and data structures are perfectly fine when not leaking outside of function
+* BUT:
+* **referential transparency** can be achieved even with mutable data structures or side-effects
+* mutable variables and data structures are perfectly fine when not leaking outside of function
 
 ---
 
@@ -523,13 +521,13 @@ let memoizeBy projection f =
 
 # Pure functions
 
-- **Pure** function:
+* **Pure** function:
     - always returns the same result for the same input (**referential transparency**)
     - no side effects
 
-- no mutable variables / data structures, no side effects <=> **pure function**
-- every **referential transparent** function is **pure**
-- **pure function** is more strict, but can be checked by compiler - one of idea behind Haskell
+* no mutable variables / data structures, no side effects <=> **pure function**
+* every **referential transparent** function is **pure**
+* **pure function** is more strict, but can be checked by compiler - one of idea behind Haskell
 
 ---
 
@@ -539,12 +537,12 @@ let memoizeBy projection f =
 
 ---
 
-- Immutable collections are persistent data structures for C# from .NET 7
-- `ImmutableList<T>` is indexable, represented as tree (similar to `Map<int, T>`)
-- `ImmutableArray<T>` copying whole array on change (!)
-- `ImmutableDictionary<K, V>` is similar to `Map<K, V>`
-- `ImmutableStack<T>` is actually linked list - similar to `list<T>`
-- `ImmutableQueue<T>` - no std. F# equivalent\
+* Immutable collections are persistent data structures for C# from .NET 7
+* `ImmutableList<T>` is indexable, represented as tree (similar to `Map<int, T>`)
+* `ImmutableArray<T>` copying whole array on change (!)
+* `ImmutableDictionary<K, V>` is similar to `Map<K, V>`
+* `ImmutableStack<T>` is actually linked list - similar to `list<T>`
+* `ImmutableQueue<T>` - no std. F# equivalent\
 
 https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections
 

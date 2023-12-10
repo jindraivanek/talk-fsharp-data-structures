@@ -46,19 +46,19 @@ let s = [1; 7; 3; 9; 5; 6; 2; 8; 4] |> set
 
 ---
 
-- values must be comparable
-- searching for item (`Set.exists`, `Set.contains`) by binary search
-- insert, remove - unchanged part of tree is shared
+* values must be comparable
+* searching for item (`Set.exists`, `Set.contains`) by binary search
+* insert, remove - unchanged part of tree is shared
 ![after insert](map_after_insert.png)
-- functions with predicate on value (`Set.map`, `Set.filter`, `Set.partition`), goes through whole tree! (in order)
-- keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
+* functions with predicate on value (`Set.map`, `Set.filter`, `Set.partition`), goes through whole tree! (in order)
+* keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
 
 ---
 
 ## When to use Set instead of List?
 
-- generally its faster to search for item with `Set`
-- but for small sizes `List.constains` is faster
+* generally its faster to search for item with `Set`
+* but for small sizes `List.constains` is faster
 
 ---
 
@@ -88,14 +88,14 @@ table {
 ---
 
 ## Another important functions
-- `Set.union`
-- `Set.intersect`
-- `Set.difference`
+* `Set.union`
+* `Set.intersect`
+* `Set.difference`
 
 all of them works recursively on tree structure -> faster than the same on `list`
 
-- `Set.isSubset`
-- `Set.isSuperset`
+* `Set.isSubset`
+* `Set.isSuperset`
 
 try find all elements of first set in second
 

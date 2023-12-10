@@ -33,10 +33,10 @@ let listB2 = [4] @ listA
 
 ## F# (Linked) list
 
-- fast iteration, mapping, filtering, append to start
-- slow indexing, append on end
-- `x :: xs` super fast
-- `xs @ ys` slow
+* fast iteration, mapping, filtering, append to start
+* slow indexing, append on end
+* `x :: xs` super fast
+* `xs @ ys` slow
 
 ---
 
@@ -63,7 +63,7 @@ let listB2 = [4] @ listA
 |    ListAddToEnd | 5,178.36 us | 102.125 us | 139.790 us |
 | ListAddToEndAcc |    15.99 us |   0.308 us |   0.303 us |
 
-- List.rev is fast!
+* List.rev is fast!
 
 ---
 
@@ -71,8 +71,8 @@ let listB2 = [4] @ listA
 
 ![Searching in list](list_search.gif)
 
-- `List.find`, `List.nth` goes through list one by one
-- `Set` is better for searching in big lists
-- if you really need indexing, use array
+* `List.find`, `List.nth` goes through list one by one
+* `Set` is better for searching in big lists
+* if you really need indexing, use array
 
 ---

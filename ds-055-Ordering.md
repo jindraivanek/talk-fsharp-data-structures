@@ -1,17 +1,17 @@
 <!-- header: '**F# Data Structures**' -->
 
 # F# data types
-- unit
-- primitive types - `int`, `float`, `string`, `bool`, ...
-- records
-- tuples
-- discriminated unions
+* unit
+* primitive types - `int`, `float`, `string`, `bool`, ...
+* records
+* tuples
+* discriminated unions
 
 ## composed types
 
-- `list`
-- `Set`
-- `Map`
+* `list`
+* `Set`
+* `Map`
 
 all F# data types have defined structural equality and ordering - can be used in `Set` and `Map`
 
