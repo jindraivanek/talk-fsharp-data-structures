@@ -89,3 +89,7 @@ let listB2 = [4] @ listA
 * if you really need indexing, use array
 
 ---
+
+![bg](images/terminusdb-commit-graph-diagram-regtech-1536x864.png)
+
+---

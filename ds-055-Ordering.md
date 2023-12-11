@@ -31,14 +31,16 @@ type R2 = {B: string; A: int}
 {B = "a"; A = 2} > {B = "a"; A = 1}
 
 ("a", 1) < ("a", 2)
+```
 
+---
+
+```fsharp
 //DU - by order of cases
 
 Some 1 < Some 2
 None < Some System.Int32.MaxValue
 ```
-
----
 
 (Ab)use of ordering example
 

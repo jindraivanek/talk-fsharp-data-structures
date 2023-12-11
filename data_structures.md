@@ -5,6 +5,7 @@ marp: true
 paginate: true
 theme: gaia
 header: ''
+auto-scaling: true
 ---
 <style>
 div.colwrap {
@@ -40,6 +41,7 @@ div.it {
 <!-- header: '**F# Data Structures**' -->
 
 # F# Data Structures
+![Alt text](images/immutable-tree-3061166569.png)
 
 ---
 
@@ -51,7 +53,7 @@ div.it {
 * Structural comparison
 * Comparison with C# collections
 * IEnumerable, seq - lazy sequences
-* note about purity
+* referential transparency
 * ImmutableCollections
 
 ---
@@ -69,13 +71,15 @@ div.it {
 
 ---
 
-# How?
-* MYTH: to create new immutable value, you need to copy the whole thing
-* we can share parts of the structure between old and new value
+MYTH: to create new immutable value, you need to copy the whole thing
+
+![Alt text](images/meme.jpg)
 
 ---
 
-# Structural sharing
+# How?
+* we can share parts of the structure between old and new value
+* **Structural sharing**
 
 ![Structural sharing](structural_sharing.png)
 
@@ -169,6 +173,10 @@ let listB2 = [4] @ listA
 * `List.find`, `List.nth` goes through list one by one
 * `Set` is better for searching in big lists
 * if you really need indexing, use array
+
+---
+
+![bg](images/terminusdb-commit-graph-diagram-regtech-1536x864.png)
 
 ---
 <!-- header: '**F# Data Structures**' -->
@@ -372,14 +380,16 @@ type R2 = {B: string; A: int}
 {B = "a"; A = 2} > {B = "a"; A = 1}
 
 ("a", 1) < ("a", 2)
+```
 
+---
+
+```fsharp
 //DU - by order of cases
 
 Some 1 < Some 2
 None < Some System.Int32.MaxValue
 ```
-
----
 
 (Ab)use of ordering example
 
