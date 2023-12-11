@@ -24,6 +24,10 @@ let s = [11; 20; 29; 32; 41; 50; 65; 72; 91; 99] |> set
         | SetOne  of 'T                                     // height = 1   
 ```
 
+```fsharp
+SetNode(41, SetNode(20, SetOne(11), SetNode(29, SetEmpty, SetOne(32), 1), 2), SetNode(65, SetOne(50), SetNode(91, SetOne(72), SetOne(99), 1), 2), 3)
+```
+
 ---
 
 Insert = search + add

@@ -5,7 +5,6 @@ marp: true
 paginate: true
 theme: gaia
 header: ''
-auto-scaling: true
 ---
 <style>
 div.colwrap {
@@ -74,8 +73,6 @@ div.it {
 * MYTH: to create new immutable value, you need to copy the whole thing
 * we can share parts of the structure between old and new value
 
-TODO: meme
-
 ---
 
 # Structural sharing
@@ -94,10 +91,23 @@ let listA = 1 :: 2 :: 3 :: []
 
 ![Alt text](list1.png)
 
+---
+
+F# list type definition
 ```fsharp
 type List<'T> = 
 | ([]) : 'T list
 | ( :: ) : Head: 'T * Tail: 'T list -> 'T list
+```
+
+equivalently
+
+```fsharp
+type List<'T> = 
+| Nil : 'T list
+| Cons : Head: 'T * Tail: 'T list -> 'T list
+
+let listA = Cons(1, Cons(2, Cons(3, Nil)))
 ```
 
 ---
@@ -185,6 +195,10 @@ let s = [11; 20; 29; 32; 41; 50; 65; 72; 91; 99] |> set
         | SetEmpty                                          // height = 0   
         | SetNode of 'T * SetTree<'T> *  SetTree<'T> * int    // height = int 
         | SetOne  of 'T                                     // height = 1   
+```
+
+```fsharp
+SetNode(41, SetNode(20, SetOne(11), SetNode(29, SetEmpty, SetOne(32), 1), 2), SetNode(65, SetOne(50), SetNode(91, SetOne(72), SetOne(99), 1), 2), 3)
 ```
 
 ---

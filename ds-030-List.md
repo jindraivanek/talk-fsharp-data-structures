@@ -9,10 +9,23 @@ let listA = 1 :: 2 :: 3 :: []
 
 ![Alt text](list1.png)
 
+---
+
+F# list type definition
 ```fsharp
 type List<'T> = 
 | ([]) : 'T list
 | ( :: ) : Head: 'T * Tail: 'T list -> 'T list
+```
+
+equivalently
+
+```fsharp
+type List<'T> = 
+| Nil : 'T list
+| Cons : Head: 'T * Tail: 'T list -> 'T list
+
+let listA = Cons(1, Cons(2, Cons(3, Nil)))
 ```
 
 ---
