@@ -238,7 +238,7 @@ from https://visualgo.net/en/bst
 * insert, remove - unchanged part of tree is shared
 ![after insert](map_after_insert.png)
 * functions with predicate on value (`Set.map`, `Set.filter`, `Set.partition`), goes through whole tree! (in order)
-* keys cannot be duplicite - insert (`Map.add`) repace value if key already exists
+* keys cannot be duplicite - insert (`Set.add`) repace value if key already exists
 
 ---
 
