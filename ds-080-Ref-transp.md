@@ -50,7 +50,7 @@ let memoizeBy projection f =
     - no side effects
 
 * no mutable variables / data structures, no side effects <=> **pure function**
-* every **referential transparent** function is **pure**
+* every **pure** function is **referential transparent**
 * **pure function** is more strict, but can be checked by compiler - one of idea behind Haskell
 
 ---

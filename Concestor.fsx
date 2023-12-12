@@ -93,5 +93,7 @@ let c3 = c.add "c" 3 c2
 (c.get c2) |> Seq.map (fun kvp -> kvp.Key, kvp.Value) |> printfn "%A"
 (c.get (c2 |> c.remove "b" |> c.add "bb" 3)) |> Seq.map (fun kvp -> kvp.Key, kvp.Value) |> printfn "%A"
 c1
+c3
 c.get c1
 c.get c2
+c.get c3
